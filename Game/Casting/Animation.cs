@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Unit06.Game.Casting
+namespace MarioRacer.Game.Casting
 {
     /// <summary>
     /// An animation.

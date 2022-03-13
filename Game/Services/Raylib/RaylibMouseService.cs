@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Raylib_cs;
-using Unit06.Game.Casting;
+using MarioRacer.Game.Casting;
 
 
-namespace Unit06.Game.Services
+namespace MarioRacer.Game.Services
 {
     public class RaylibMouseService : MouseService
     {

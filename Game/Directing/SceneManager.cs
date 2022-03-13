@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Unit06.Game.Casting;
-using Unit06.Game.Scripting;
-using Unit06.Game.Services;
+using MarioRacer.Game.Casting;
+using MarioRacer.Game.Scripting;
+using MarioRacer.Game.Services;
 
 
-namespace Unit06.Game.Directing
+namespace MarioRacer.Game.Directing
 {
     public class SceneManager
     {
@@ -53,7 +53,7 @@ namespace Unit06.Game.Directing
             AddLives(cast);
             AddBall(cast);
             AddBricks(cast);
-            AddRacket(cast);
+            AddCar(cast);
             AddDialog(cast, Constants.ENTER_TO_START);
 
             script.ClearAllActions();
@@ -78,7 +78,7 @@ namespace Unit06.Game.Directing
         {
             AddBall(cast);
             AddBricks(cast);
-            AddRacket(cast);
+            AddCar(cast);
             AddDialog(cast, Constants.PREP_TO_LAUNCH);
 
             script.ClearAllActions();
@@ -95,7 +95,7 @@ namespace Unit06.Game.Directing
         private void PrepareTryAgain(Cast cast, Script script)
         {
             AddBall(cast);
-            AddRacket(cast);
+            AddCar(cast);
             AddDialog(cast, Constants.PREP_TO_LAUNCH);
 
             script.ClearAllActions();
@@ -114,7 +114,7 @@ namespace Unit06.Game.Directing
 
             script.ClearAllActions();
 
-            ControlRacketAction action = new ControlRacketAction(KeyboardService);
+            ControlCarAction action = new ControlCarAction(KeyboardService);
             script.AddAction(Constants.INPUT, action);
 
             AddUpdateActions(script);    
@@ -125,7 +125,7 @@ namespace Unit06.Game.Directing
         private void PrepareGameOver(Cast cast, Script script)
         {
             AddBall(cast);
-            AddRacket(cast);
+            AddCar(cast);
             AddDialog(cast, Constants.WAS_GOOD_GAME);
 
             script.ClearAllActions();
@@ -145,7 +145,7 @@ namespace Unit06.Game.Directing
             cast.ClearActors(Constants.BALL_GROUP);
         
             int x = Constants.CENTER_X - Constants.BALL_WIDTH / 2;
-            int y = Constants.SCREEN_HEIGHT - Constants.RACKET_HEIGHT - Constants.BALL_HEIGHT;
+            int y = Constants.SCREEN_HEIGHT - Constants.CAR_HEIGHT - Constants.BALL_HEIGHT;
         
             Point position = new Point(x, y);
             Point size = new Point(Constants.BALL_WIDTH, Constants.BALL_HEIGHT);
@@ -171,8 +171,8 @@ namespace Unit06.Game.Directing
             {
                 for (int c = 0; c < rows[r].Count; c++)
                 {
-                    int x = Constants.FIELD_LEFT + c * Constants.BRICK_WIDTH;
-                    int y = Constants.FIELD_TOP + r * Constants.BRICK_HEIGHT;
+                    int x = Constants.ROAD_LEFT + c * Constants.BRICK_WIDTH;
+                    int y = Constants.ROAD_TOP + r * Constants.BRICK_HEIGHT;
 
                     string color = rows[r][c][0].ToString();
                     int frames = (int)Char.GetNumericValue(rows[r][c][1]);
@@ -229,22 +229,22 @@ namespace Unit06.Game.Directing
             cast.AddActor(Constants.LIVES_GROUP, label);   
         }
 
-        private void AddRacket(Cast cast)
+        private void AddCar(Cast cast)
         {
-            cast.ClearActors(Constants.RACKET_GROUP);
+            cast.ClearActors(Constants.CAR_GROUP);
         
-            int x = Constants.CENTER_X - Constants.RACKET_WIDTH / 2;
-            int y = Constants.SCREEN_HEIGHT - Constants.RACKET_HEIGHT;
+            int x = Constants.CENTER_X - Constants.CAR_WIDTH / 2;
+            int y = Constants.SCREEN_HEIGHT - Constants.CAR_HEIGHT;
         
             Point position = new Point(x, y);
-            Point size = new Point(Constants.RACKET_WIDTH, Constants.RACKET_HEIGHT);
+            Point size = new Point(Constants.CAR_WIDTH, Constants.CAR_HEIGHT);
             Point velocity = new Point(0, 0);
         
             Body body = new Body(position, size, velocity);
-            Animation animation = new Animation(Constants.RACKET_IMAGES, Constants.RACKET_RATE, 0);
-            Racket racket = new Racket(body, animation, false);
+            Animation animation = new Animation(Constants.CAR_IMAGES, Constants.CAR_RATE, 0);
+            Car car = new Car(body, animation, false);
         
-            cast.AddActor(Constants.RACKET_GROUP, racket);
+            cast.AddActor(Constants.CAR_GROUP, car);
         }
 
         private void AddScore(Cast cast)
@@ -302,7 +302,7 @@ namespace Unit06.Game.Directing
             script.AddAction(Constants.OUTPUT, new DrawHudAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawBallAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
-            script.AddAction(Constants.OUTPUT, new DrawRacketAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));
             script.AddAction(Constants.OUTPUT, new EndDrawingAction(VideoService));
         }
@@ -321,10 +321,10 @@ namespace Unit06.Game.Directing
         private void AddUpdateActions(Script script)
         {
             script.AddAction(Constants.UPDATE, new MoveBallAction());
-            script.AddAction(Constants.UPDATE, new MoveRacketAction());
+            script.AddAction(Constants.UPDATE, new MoveCarAction());
             script.AddAction(Constants.UPDATE, new CollideBordersAction(PhysicsService, AudioService));
             script.AddAction(Constants.UPDATE, new CollideBrickAction(PhysicsService, AudioService));
-            script.AddAction(Constants.UPDATE, new CollideRacketAction(PhysicsService, AudioService));
+            script.AddAction(Constants.UPDATE, new CollideCarAction(PhysicsService, AudioService));
             script.AddAction(Constants.UPDATE, new CheckOverAction());     
         }
     }

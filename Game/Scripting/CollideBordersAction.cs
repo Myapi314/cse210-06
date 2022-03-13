@@ -1,8 +1,8 @@
-using Unit06.Game.Casting;
-using Unit06.Game.Services;
+using MarioRacer.Game.Casting;
+using MarioRacer.Game.Services;
 
 
-namespace Unit06.Game.Scripting
+namespace MarioRacer.Game.Scripting
 {
     public class CollideBordersAction : Action
     {
@@ -25,23 +25,23 @@ namespace Unit06.Game.Scripting
             Sound bounceSound = new Sound(Constants.BOUNCE_SOUND);
             Sound overSound = new Sound(Constants.OVER_SOUND);
 
-            if (x < Constants.FIELD_LEFT)
+            if (x < Constants.ROAD_LEFT)
             {
                 ball.BounceX();
                 audioService.PlaySound(bounceSound);
             }
-            else if (x >= Constants.FIELD_RIGHT - Constants.BALL_WIDTH)
+            else if (x >= Constants.ROAD_RIGHT - Constants.BALL_WIDTH)
             {
                 ball.BounceX();
                 audioService.PlaySound(bounceSound);
             }
 
-            if (y < Constants.FIELD_TOP)
+            if (y < Constants.ROAD_TOP)
             {
                 ball.BounceY();
                 audioService.PlaySound(bounceSound);
             }
-            else if (y >= Constants.FIELD_BOTTOM - Constants.BALL_WIDTH)
+            else if (y >= Constants.ROAD_BOTTOM - Constants.BALL_WIDTH)
             {
                 Stats stats = (Stats)cast.GetFirstActor(Constants.STATS_GROUP);
                 stats.RemoveLife();

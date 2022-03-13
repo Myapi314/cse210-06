@@ -1,32 +1,32 @@
-using Unit06.Game.Casting;
-using Unit06.Game.Services;
+using MarioRacer.Game.Casting;
+using MarioRacer.Game.Services;
 
 
-namespace Unit06.Game.Scripting
+namespace MarioRacer.Game.Scripting
 {
-    public class ControlRacketAction : Action
+    public class ControlCarAction : Action
     {
         private KeyboardService keyboardService;
 
-        public ControlRacketAction(KeyboardService keyboardService)
+        public ControlCarAction(KeyboardService keyboardService)
         {
             this.keyboardService = keyboardService;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Racket racket = (Racket)cast.GetFirstActor(Constants.RACKET_GROUP);
+            Car car = (Car)cast.GetFirstActor(Constants.CAR_GROUP);
             if (keyboardService.IsKeyDown(Constants.LEFT))
             {
-                racket.SwingLeft();
+                car.SwingLeft();
             }
             else if (keyboardService.IsKeyDown(Constants.RIGHT))
             {
-                racket.SwingRight();
+                car.SwingRight();
             }
             else
             {
-                racket.StopMoving();
+                car.StopMoving();
             }
         }
     }

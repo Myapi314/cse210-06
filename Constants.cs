@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Unit06.Game.Casting;
+using MarioRacer.Game.Casting;
 
 
-namespace Unit06
+namespace MarioRacer
 {
     public class Constants
     {
@@ -11,7 +11,7 @@ namespace Unit06
         // ----------------------------------------------------------------------------------------- 
 
         // GAME
-        public static string GAME_NAME = "Batter";
+        public static string GAME_NAME = "Drag Race Mario";
         public static int FRAME_RATE = 60;
 
         // SCREEN
@@ -20,11 +20,11 @@ namespace Unit06
         public static int CENTER_X = SCREEN_WIDTH / 2;
         public static int CENTER_Y = SCREEN_HEIGHT / 2;
 
-        // FIELD
-        public static int FIELD_TOP = 60;
-        public static int FIELD_BOTTOM = SCREEN_HEIGHT;
-        public static int FIELD_LEFT = 0;
-        public static int FIELD_RIGHT = SCREEN_WIDTH;
+        // ROAD
+        public static int ROAD_TOP = 60;
+        public static int ROAD_BOTTOM = SCREEN_HEIGHT;
+        public static int ROAD_LEFT = 0;
+        public static int ROAD_RIGHT = SCREEN_WIDTH;
 
         // FONT
         public static string FONT_FILE = "Assets/Fonts/zorque.otf";
@@ -102,20 +102,20 @@ namespace Unit06
         public static int BALL_HEIGHT = 28;
         public static int BALL_VELOCITY = 6;
 
-        // RACKET
-        public static string RACKET_GROUP = "rackets";
+        // CAR
+        public static string CAR_GROUP = "cars";
         
-        public static List<string> RACKET_IMAGES
+        public static List<string> CAR_IMAGES
             = new List<string>() {
                 "Assets/Images/100.png",
                 "Assets/Images/101.png",
                 "Assets/Images/102.png"
             };
 
-        public static int RACKET_WIDTH = 106;
-        public static int RACKET_HEIGHT = 28;
-        public static int RACKET_RATE = 6;
-        public static int RACKET_VELOCITY = 7;
+        public static int CAR_WIDTH = 106;
+        public static int CAR_HEIGHT = 28;
+        public static int CAR_RATE = 6;
+        public static int CAR_VELOCITY = 7;
 
         // BRICK
         public static string BRICK_GROUP = "bricks";

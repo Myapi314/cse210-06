@@ -1,4 +1,4 @@
-namespace Unit06.Game.Services
+namespace MarioRacer.Game.Services
 {
     public interface KeyboardService
     {

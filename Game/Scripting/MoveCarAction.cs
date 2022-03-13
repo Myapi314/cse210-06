@@ -1,17 +1,17 @@
-using Unit06.Game.Casting;
+using MarioRacer.Game.Casting;
 
-namespace Unit06.Game.Scripting
+namespace MarioRacer.Game.Scripting
 {
-    public class MoveRacketAction : Action
+    public class MoveCarAction : Action
     {
-        public MoveRacketAction()
+        public MoveCarAction()
         {
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Racket racket = (Racket)cast.GetFirstActor(Constants.RACKET_GROUP);
-            Body body = racket.GetBody();
+            Car car = (Car)cast.GetFirstActor(Constants.CAR_GROUP);
+            Body body = car.GetBody();
             Point position = body.GetPosition();
             Point velocity = body.GetVelocity();
             int x = position.GetX();
@@ -21,9 +21,9 @@ namespace Unit06.Game.Scripting
             {
                 position = new Point(0, position.GetY());
             }
-            else if (x > Constants.SCREEN_WIDTH - Constants.RACKET_WIDTH)
+            else if (x > Constants.SCREEN_WIDTH - Constants.CAR_WIDTH)
             {
-                position = new Point(Constants.SCREEN_WIDTH - Constants.RACKET_WIDTH, 
+                position = new Point(Constants.SCREEN_WIDTH - Constants.CAR_WIDTH, 
                     position.GetY());
             }
 

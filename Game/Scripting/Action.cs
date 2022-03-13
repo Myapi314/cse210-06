@@ -1,7 +1,7 @@
-using Unit06.Game.Casting;
+using MarioRacer.Game.Casting;
 
 
-namespace Unit06.Game.Scripting 
+namespace MarioRacer.Game.Scripting 
 {
     /// <summary>
     /// A thing that is done in the game.

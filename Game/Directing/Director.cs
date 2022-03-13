@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Unit06.Game.Casting;
-using Unit06.Game.Scripting;
-using Unit06.Game.Services;
+using MarioRacer.Game.Casting;
+using MarioRacer.Game.Scripting;
+using MarioRacer.Game.Services;
 
 
-namespace Unit06.Game.Directing
+namespace MarioRacer.Game.Directing
 {
     /// <summary>
     /// A person who directs the game.

@@ -1,24 +1,24 @@
-using Unit06.Game.Casting;
-using Unit06.Game.Services;
+using MarioRacer.Game.Casting;
+using MarioRacer.Game.Services;
 
 
-namespace Unit06.Game.Scripting
+namespace MarioRacer.Game.Scripting
 {
-    public class DrawRacketAction : Action
+    public class DrawCarAction : Action
     {
         private VideoService videoService;
         
-        public DrawRacketAction(VideoService videoService)
+        public DrawCarAction(VideoService videoService)
         {
             this.videoService = videoService;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Racket racket = (Racket)cast.GetFirstActor(Constants.RACKET_GROUP);
-            Body body = racket.GetBody();
+            Car car = (Car)cast.GetFirstActor(Constants.CAR_GROUP);
+            Body body = car.GetBody();
 
-            if (racket.IsDebug())
+            if (car.IsDebug())
             {
                 Rectangle rectangle = body.GetRectangle();
                 Point size = rectangle.GetSize();
@@ -26,7 +26,7 @@ namespace Unit06.Game.Scripting
                 videoService.DrawRectangle(size, pos, Constants.PURPLE, false);
             }
 
-            Animation animation = racket.GetAnimation();
+            Animation animation = car.GetAnimation();
             Image image = animation.NextImage();
             Point position = body.GetPosition();
             videoService.DrawImage(image, position);

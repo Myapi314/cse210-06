@@ -1,5 +1,5 @@
-using Unit06.Game.Casting;
-namespace Unit06.Game.Scripting
+using MarioRacer.Game.Casting;
+namespace MarioRacer.Game.Scripting
 {
     public class MoveBallAction : Action
     {
