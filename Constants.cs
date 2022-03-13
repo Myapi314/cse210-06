@@ -113,7 +113,7 @@ namespace MarioRacer
             };
 
         public static int CAR_WIDTH = 106;
-        public static int CAR_HEIGHT = 28;
+        public static int CAR_HEIGHT = 200;
         public static int CAR_RATE = 6;
         public static int CAR_VELOCITY = 7;
 
