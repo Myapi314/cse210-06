@@ -174,10 +174,20 @@ namespace MarioRacer
         public static int BRICK_RATE = 4;
         public static int BRICK_POINTS = 50;
 
+        // FLAG
+        public static string FLAG_GROUP = "flag";
+        public static string FLAG_IMAGE = "Assets/Images/flag.png";
+        public static int FLAG_WIDTH = 100;
+        public static int FLAG_HEIGHT = 35;
+        public static double FLAG_DELAY = 0.5;
+        public static int FLAG_RATE = 4;
+
         // DIALOG
         public static string DIALOG_GROUP = "dialogs";
         public static string ENTER_TO_START = "PRESS ENTER TO START";
-        public static string PREP_TO_LAUNCH = "PREPARING TO LAUNCH";
+        public static string READY = "READY...";
+        public static string SET = "SET...";
+        public static string GO = "GO!";
         public static string WAS_GOOD_GAME = "GAME OVER";
 
     }

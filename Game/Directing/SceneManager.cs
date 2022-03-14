@@ -52,6 +52,8 @@ namespace MarioRacer.Game.Directing
             AddScore(cast);
             AddLives(cast);
             AddBall(cast);
+            AddCar(cast);
+            AddFlag(cast);
             AddBricks(cast);
             AddCar(cast);
             AddDialog(cast, Constants.ENTER_TO_START);
@@ -78,8 +80,11 @@ namespace MarioRacer.Game.Directing
         {
             AddBall(cast);
             AddBricks(cast);
+            AddFlag(cast);
             AddCar(cast);
-            AddDialog(cast, Constants.PREP_TO_LAUNCH);
+            AddDialog(cast, Constants.READY);
+            AddDialog(cast, Constants.SET);
+            AddDialog(cast, Constants.GO);
 
             script.ClearAllActions();
 
@@ -95,8 +100,11 @@ namespace MarioRacer.Game.Directing
         private void PrepareTryAgain(Cast cast, Script script)
         {
             AddBall(cast);
+            AddFlag(cast);
             AddCar(cast);
-            AddDialog(cast, Constants.PREP_TO_LAUNCH);
+            AddDialog(cast, Constants.READY);
+            AddDialog(cast, Constants.SET);
+            AddDialog(cast, Constants.GO);
 
             script.ClearAllActions();
             
@@ -156,6 +164,24 @@ namespace MarioRacer.Game.Directing
             Ball ball = new Ball(body, image, false);
         
             cast.AddActor(Constants.BALL_GROUP, ball);
+        }
+
+        private void AddFlag(Cast cast)
+        {
+            cast.ClearActors(Constants.FLAG_GROUP);
+        
+            int x = 0 + Constants.FLAG_WIDTH;
+            int y = 0 + Constants.FLAG_HEIGHT;
+        
+            Point position = new Point(x, y);
+            Point size = new Point(Constants.FLAG_WIDTH, Constants.FLAG_HEIGHT);
+            Point velocity = new Point(0, 1);
+        
+            Body body = new Body(position, size, velocity);
+            Image image = new Image(Constants.FLAG_IMAGE);
+            Flag flag = new Flag(body, image, 0, false);
+        
+            cast.AddActor(Constants.FLAG_GROUP, flag);
         }
 
         private void AddBricks(Cast cast)
@@ -304,6 +330,7 @@ namespace MarioRacer.Game.Directing
             script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService));
             script.AddAction(Constants.OUTPUT, new EndDrawingAction(VideoService));
         }
 
@@ -322,8 +349,10 @@ namespace MarioRacer.Game.Directing
         {
             script.AddAction(Constants.UPDATE, new MoveBallAction());
             script.AddAction(Constants.UPDATE, new MoveCarAction());
+            script.AddAction(Constants.UPDATE, new MoveFlagAction());
             script.AddAction(Constants.UPDATE, new CollideBordersAction(PhysicsService, AudioService));
             script.AddAction(Constants.UPDATE, new CollideBrickAction(PhysicsService, AudioService));
+            script.AddAction(Constants.UPDATE, new CollideBottomAction(PhysicsService, AudioService));
             script.AddAction(Constants.UPDATE, new CollideCarAction(PhysicsService, AudioService));
             script.AddAction(Constants.UPDATE, new CheckOverAction());     
         }
