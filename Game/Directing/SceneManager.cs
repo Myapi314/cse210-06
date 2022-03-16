@@ -54,7 +54,7 @@ namespace MarioRacer.Game.Directing
             // AddBall(cast);
             AddCar(cast);
             AddFlag(cast);
-            AddBricks(cast);
+            // AddBricks(cast);
             AddCar(cast);
             AddDialog(cast, Constants.ENTER_TO_START);
 
@@ -79,7 +79,7 @@ namespace MarioRacer.Game.Directing
         private void PrepareNextLevel(Cast cast, Script script)
         {
             // AddBall(cast);
-            AddBricks(cast);
+            // AddBricks(cast);
             AddFlag(cast);
             AddCar(cast);
             AddDialog(cast, Constants.READY);
@@ -327,7 +327,7 @@ namespace MarioRacer.Game.Directing
             script.AddAction(Constants.OUTPUT, new StartDrawingAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawHudAction(VideoService));
             // script.AddAction(Constants.OUTPUT, new DrawBallAction(VideoService));
-            script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
+            // script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService));
@@ -354,7 +354,7 @@ namespace MarioRacer.Game.Directing
             // script.AddAction(Constants.UPDATE, new CollideBrickAction(PhysicsService, AudioService));
             script.AddAction(Constants.UPDATE, new CollideBottomAction(PhysicsService, AudioService));
             // script.AddAction(Constants.UPDATE, new CollideCarAction(PhysicsService, AudioService));
-            script.AddAction(Constants.UPDATE, new CheckOverAction());     
+            // script.AddAction(Constants.UPDATE, new CheckOverAction());     
         }
     }
 }

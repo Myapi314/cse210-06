@@ -47,7 +47,7 @@ namespace MarioRacer.Game.Scripting
                 flag.AddMile();
                 Console.WriteLine(flag.GetMileMarker());
 
-                if (flag.GetMileMarker() > 40)
+                if (flag.GetMileMarker() > 3)
                 {
                     callback.OnNext(Constants.GAME_OVER);
                     audioService.PlaySound(overSound);
