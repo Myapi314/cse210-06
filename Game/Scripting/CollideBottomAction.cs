@@ -42,7 +42,7 @@ namespace MarioRacer.Game.Scripting
             //     ball.BounceY();
             //     audioService.PlaySound(bounceSound);
             // }
-            if (y >= (Constants.ROAD_BOTTOM - Constants.FLAG_HEIGHT))
+            if (y >= (Constants.ROAD_BOTTOM - 2))
             {
                 flag.AddMile();
                 Console.WriteLine(flag.GetMileMarker());
