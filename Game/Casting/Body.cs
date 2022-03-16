@@ -81,5 +81,19 @@ namespace MarioRacer.Game.Casting
         {
             this.velocity = velocity;
         }
+
+        /// <summary>
+        /// Moves the actor to its next position according to its velocity. Will wrap the position 
+        /// from one side of the screen to the other when it reaches the maximum x and y 
+        /// values.
+        /// </summary>
+        /// <param name="maxX">The maximum x value.</param>
+        /// <param name="maxY">The maximum y value.</param>
+        public void MoveNext(int maxX, int maxY)
+        {
+            int x = ((position.GetX() + velocity.GetX()) + maxX) % maxX;
+            int y = ((position.GetY() + velocity.GetY()) + maxY) % maxY;
+            position = new Point(x, y);
+        }
     }
 }

@@ -1,5 +1,6 @@
 using MarioRacer.Game.Casting;
 using MarioRacer.Game.Services;
+using System;
 
 
 namespace MarioRacer.Game.Scripting
@@ -41,19 +42,20 @@ namespace MarioRacer.Game.Scripting
             //     ball.BounceY();
             //     audioService.PlaySound(bounceSound);
             // }
-            if (y >= Constants.ROAD_BOTTOM - Constants.FLAG_WIDTH)
+            if (y >= (Constants.ROAD_BOTTOM - Constants.FLAG_HEIGHT))
             {
                 flag.AddMile();
+                Console.WriteLine(flag.GetMileMarker());
 
-                if (flag.GetMileMarker() > 20)
+                if (flag.GetMileMarker() > 40)
                 {
                     callback.OnNext(Constants.GAME_OVER);
                     audioService.PlaySound(overSound);
                 }
-                else
-                {
-                    callback.OnNext(Constants.TRY_AGAIN);
-                }
+                // else
+                // {
+                //     callback.OnNext(Constants.TRY_AGAIN);
+                // }
             }
         }
     }

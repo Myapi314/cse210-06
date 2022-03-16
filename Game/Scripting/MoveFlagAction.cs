@@ -11,10 +11,11 @@ namespace MarioRacer.Game.Scripting
         {
             Flag flag = (Flag)cast.GetFirstActor(Constants.FLAG_GROUP);
             Body body = flag.GetBody();
-            Point position = body.GetPosition();
-            Point velocity = body.GetVelocity();
-            position = position.Add(velocity);
-            body.SetPosition(position);
+            body.MoveNext(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+            // Point position = body.GetPosition();
+            // Point velocity = body.GetVelocity();
+            // position = position.Add(velocity);
+            // body.SetPosition(position);
         }
     }
 }

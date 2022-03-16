@@ -170,12 +170,12 @@ namespace MarioRacer.Game.Directing
         {
             cast.ClearActors(Constants.FLAG_GROUP);
         
-            int x = 0 + Constants.FLAG_WIDTH;
-            int y = 0 + Constants.FLAG_HEIGHT;
+            int x = 0;
+            int y = 0;
         
             Point position = new Point(x, y);
             Point size = new Point(Constants.FLAG_WIDTH, Constants.FLAG_HEIGHT);
-            Point velocity = new Point(0, 1);
+            Point velocity = new Point(0, 2);
         
             Body body = new Body(position, size, velocity);
             Image image = new Image(Constants.FLAG_IMAGE);
