@@ -39,6 +39,10 @@ namespace MarioRacer.Game.Directing
             {
                 PrepareInPlay(cast, script);
             }
+            else if (scene == Constants.FINISH_SCENE)
+            {
+                PrepareFinishScene(cast, script);
+            }
             else if (scene == Constants.GAME_OVER)
             {
                 PrepareGameOver(cast, script);
@@ -125,9 +129,34 @@ namespace MarioRacer.Game.Directing
             ControlCarAction action = new ControlCarAction(KeyboardService);
             script.AddAction(Constants.INPUT, action);
 
+            script.AddAction(Constants.UPDATE, new MoveFlagAction());
+
             AddUpdateActions(script);    
             AddOutputActions(script);
         
+        }
+
+        private void PrepareFinishScene(Cast cast, Script script)
+        {
+            script.ClearAllActions();
+
+            AddFinish(cast);
+            AddFlag(cast);
+            
+            CollideFinishLineAction finishAction = new CollideFinishLineAction(PhysicsService, AudioService);
+            script.AddAction(Constants.UPDATE, finishAction);
+
+            ControlCarAction carAction = new ControlCarAction(KeyboardService);
+            script.AddAction(Constants.INPUT, carAction);
+
+            DrawFinishAction drawAction = new DrawFinishAction(VideoService);
+            script.AddAction(Constants.OUTPUT, drawAction);
+
+            script.AddAction(Constants.UPDATE, new MoveFinishAction());
+
+            AddUpdateActions(script);    
+            AddOutputActions(script);
+
         }
 
         private void PrepareGameOver(Cast cast, Script script)
@@ -216,6 +245,24 @@ namespace MarioRacer.Game.Directing
                     cast.AddActor(Constants.BRICK_GROUP, brick);
                 }
             }
+        }
+
+        private void AddFinish(Cast cast)
+        {
+            cast.ClearActors(Constants.FLAG_GROUP);
+            cast.ClearActors(Constants.FINISH_GROUP);
+            int x = 0;
+            int y = 0;
+        
+            Point position = new Point(x, y);
+            Point size = new Point(Constants.FINISH_WIDTH, Constants.FINISH_HEIGHT);
+            Point velocity = new Point(0, 2);
+        
+            Body body = new Body(position, size, velocity);
+            Image image = new Image(Constants.FINISH_IMAGE);
+            CheckeredLine finish = new CheckeredLine(body, image, false);
+        
+            cast.AddActor(Constants.FINISH_GROUP, finish);
         }
 
         private void AddDialog(Cast cast, string message)
@@ -349,7 +396,6 @@ namespace MarioRacer.Game.Directing
         {
             // script.AddAction(Constants.UPDATE, new MoveBallAction());
             script.AddAction(Constants.UPDATE, new MoveCarAction());
-            script.AddAction(Constants.UPDATE, new MoveFlagAction());
             // script.AddAction(Constants.UPDATE, new CollideBordersAction(PhysicsService, AudioService));
             // script.AddAction(Constants.UPDATE, new CollideBrickAction(PhysicsService, AudioService));
             script.AddAction(Constants.UPDATE, new CollideBottomAction(PhysicsService, AudioService));

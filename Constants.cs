@@ -58,6 +58,7 @@ namespace MarioRacer
         public static string TRY_AGAIN = "try_again";
         public static string NEXT_LEVEL = "next_level";
         public static string IN_PLAY = "in_play";
+        public static string FINISH_SCENE = "finish_scene";
         public static string GAME_OVER = "game_over";
 
         // LEVELS
@@ -181,6 +182,12 @@ namespace MarioRacer
         public static int FLAG_HEIGHT = 35;
         public static double FLAG_DELAY = 0.5;
         public static int FLAG_RATE = 4;
+
+        // FINISH LINE
+        public static string FINISH_GROUP = "finish";
+        public static string FINISH_IMAGE = "Assets/Images/200.png";
+        public static int FINISH_WIDTH = 1040;
+        public static int FINISH_HEIGHT = 100;
 
         // DIALOG
         public static string DIALOG_GROUP = "dialogs";

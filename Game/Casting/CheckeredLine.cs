@@ -3,20 +3,18 @@ namespace MarioRacer.Game.Casting
     /// <summary>
     /// A thing that participates in the game.
     /// </summary>
-    public class Flag : Actor
+    public class CheckeredLine : Actor
     {
         private Body body;
         private Image image;
-        private int mileMarker;
 
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
-        public Flag(Body body, Image image, int mileMarker, bool debug = false) : base(debug)
+        public CheckeredLine(Body body, Image image, bool debug = false) : base(debug)
         {
             this.body = body;
             this.image = image;
-            this.mileMarker = mileMarker;
         }
 
         /// <summary>
@@ -35,25 +33,6 @@ namespace MarioRacer.Game.Casting
         public Body GetBody()
         {
             return body;
-        }
-
-        /// <summary>
-        /// Gets the points.
-        /// </summary>
-        /// <returns>The points.</returns>
-        public int GetMileMarker()
-        {
-            return mileMarker;
-        }
-        
-        public void AddMile()
-        {
-            this.mileMarker += 1;
-        }
-
-        public void SetMileMarker(int mile)
-        {
-            this.mileMarker = mile;
         }
     }
 }
