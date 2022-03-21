@@ -17,13 +17,13 @@ namespace MarioRacer.Game.Scripting
             int x = position.GetX();
 
             position = position.Add(velocity);
-            if (x < 0)
+            if (x < Constants.ROAD_LEFT)
             {
-                position = new Point(0, position.GetY());
+                position = new Point(Constants.ROAD_LEFT, position.GetY());
             }
-            else if (x > Constants.SCREEN_WIDTH - Constants.CAR_WIDTH)
+            else if (x > Constants.SCREEN_WIDTH - (Constants.CAR_WIDTH + Constants.ROAD_RIGHT))
             {
-                position = new Point(Constants.SCREEN_WIDTH - Constants.CAR_WIDTH, 
+                position = new Point(Constants.SCREEN_WIDTH - (Constants.CAR_WIDTH + Constants.ROAD_RIGHT), 
                     position.GetY());
             }
 

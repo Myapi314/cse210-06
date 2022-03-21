@@ -51,15 +51,13 @@ namespace MarioRacer.Game.Directing
 
         private void PrepareNewGame(Cast cast, Script script)
         {
+            AddBackground(cast);
             AddStats(cast);
             AddLevel(cast);
             AddScore(cast);
             AddLives(cast);
-            // AddBall(cast);
             AddCar(cast);
-            AddFlag(cast);
-            // AddBricks(cast);
-            AddCar(cast);
+            AddStart(cast);
             AddDialog(cast, Constants.ENTER_TO_START);
 
             script.ClearAllActions();
@@ -68,6 +66,10 @@ namespace MarioRacer.Game.Directing
 
             ChangeSceneAction a = new ChangeSceneAction(KeyboardService, Constants.NEXT_LEVEL);
             script.AddAction(Constants.INPUT, a);
+
+
+            script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.START_GROUP));
 
             AddOutputActions(script);
             AddUnloadActions(script);
@@ -86,14 +88,16 @@ namespace MarioRacer.Game.Directing
             // AddBricks(cast);
             AddFlag(cast);
             AddCar(cast);
+            AddStart(cast);
             AddDialog(cast, Constants.READY);
-            AddDialog(cast, Constants.SET);
-            AddDialog(cast, Constants.GO);
 
             script.ClearAllActions();
 
             TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.IN_PLAY, 2, DateTime.Now);
             script.AddAction(Constants.INPUT, ta);
+
+            script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.START_GROUP));
 
             AddOutputActions(script);
 
@@ -114,6 +118,8 @@ namespace MarioRacer.Game.Directing
             
             TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.IN_PLAY, 2, DateTime.Now);
             script.AddAction(Constants.INPUT, ta);
+
+            script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
             
             AddUpdateActions(script);
             AddOutputActions(script);
@@ -122,6 +128,8 @@ namespace MarioRacer.Game.Directing
         private void PrepareInPlay(Cast cast, Script script)
         {
             // ActivateBall(cast);
+            AddStart(cast);
+            AddFlag(cast);
             cast.ClearActors(Constants.DIALOG_GROUP);
 
             script.ClearAllActions();
@@ -129,7 +137,14 @@ namespace MarioRacer.Game.Directing
             ControlCarAction action = new ControlCarAction(KeyboardService);
             script.AddAction(Constants.INPUT, action);
 
+            script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
+
             script.AddAction(Constants.UPDATE, new MoveFlagAction());
+            script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService));
+            script.AddAction(Constants.UPDATE, new CollideBottomAction(PhysicsService, AudioService));
+
+            script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.START_GROUP));
+            script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.START_GROUP));
 
             AddUpdateActions(script);    
             AddOutputActions(script);
@@ -141,7 +156,6 @@ namespace MarioRacer.Game.Directing
             script.ClearAllActions();
 
             AddFinish(cast);
-            AddFlag(cast);
             
             CollideFinishLineAction finishAction = new CollideFinishLineAction(PhysicsService, AudioService);
             script.AddAction(Constants.UPDATE, finishAction);
@@ -149,10 +163,12 @@ namespace MarioRacer.Game.Directing
             ControlCarAction carAction = new ControlCarAction(KeyboardService);
             script.AddAction(Constants.INPUT, carAction);
 
-            DrawFinishAction drawAction = new DrawFinishAction(VideoService);
+            script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
+
+            DrawCheckeredLineAction drawAction = new DrawCheckeredLineAction(VideoService, Constants.FINISH_GROUP);
             script.AddAction(Constants.OUTPUT, drawAction);
 
-            script.AddAction(Constants.UPDATE, new MoveFinishAction());
+            script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.FINISH_GROUP));
 
             AddUpdateActions(script);    
             AddOutputActions(script);
@@ -162,15 +178,23 @@ namespace MarioRacer.Game.Directing
         private void PrepareGameOver(Cast cast, Script script)
         {
             // AddBall(cast);
-            AddCar(cast);
             AddDialog(cast, Constants.WAS_GOOD_GAME);
 
             script.ClearAllActions();
+
+            script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
+
+            DrawCheckeredLineAction drawAction = new DrawCheckeredLineAction(VideoService, Constants.FINISH_GROUP);
+            script.AddAction(Constants.OUTPUT, drawAction);
+
+            script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.FINISH_GROUP));
+            script.AddAction(Constants.INPUT, new ControlCarAction(KeyboardService));
 
             TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.NEW_GAME, 5, DateTime.Now);
             script.AddAction(Constants.INPUT, ta);
 
             AddOutputActions(script);
+            AddUpdateActions(script);
         }
 
         // -----------------------------------------------------------------------------------------
@@ -194,6 +218,25 @@ namespace MarioRacer.Game.Directing
         
             cast.AddActor(Constants.BALL_GROUP, ball);
         }
+
+        private void AddBackground(Cast cast)
+        {
+            cast.ClearActors(Constants.BACKGROUND_GROUP);
+        
+            int x = 0;
+            int y = 0;
+        
+            Point position = new Point(x, y);
+            Point size = new Point(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+            Point velocity = new Point(0, 0);
+        
+            Body body = new Body(position, size, velocity);
+            Image image = new Image(Constants.BACKGROUND_IMAGE);
+            Background background = new Background(body, image, false);
+        
+            cast.AddActor(Constants.BACKGROUND_GROUP, background);
+        }
+
 
         private void AddFlag(Cast cast)
         {
@@ -255,7 +298,7 @@ namespace MarioRacer.Game.Directing
             int y = 0;
         
             Point position = new Point(x, y);
-            Point size = new Point(Constants.FINISH_WIDTH, Constants.FINISH_HEIGHT);
+            Point size = new Point(Constants.CHECKERED_WIDTH, Constants.CHECKERED_HEIGHT);
             Point velocity = new Point(0, 2);
         
             Body body = new Body(position, size, velocity);
@@ -265,13 +308,30 @@ namespace MarioRacer.Game.Directing
             cast.AddActor(Constants.FINISH_GROUP, finish);
         }
 
+        private void AddStart(Cast cast)
+        {
+            cast.ClearActors(Constants.FLAG_GROUP);
+            cast.ClearActors(Constants.START_GROUP);
+            int x = 0;
+        
+            Point position = new Point(x, Constants.CENTER_Y);
+            Point size = new Point(Constants.CHECKERED_WIDTH, Constants.CHECKERED_HEIGHT);
+            Point velocity = new Point(0, 2);
+        
+            Body body = new Body(position, size, velocity);
+            Image image = new Image(Constants.START_IMAGE);
+            CheckeredLine finish = new CheckeredLine(body, image, false);
+        
+            cast.AddActor(Constants.START_GROUP, finish);
+        }
+
         private void AddDialog(Cast cast, string message)
         {
             cast.ClearActors(Constants.DIALOG_GROUP);
 
             Text text = new Text(message, Constants.FONT_FILE, Constants.FONT_SIZE, 
                 Constants.ALIGN_CENTER, Constants.WHITE);
-            Point position = new Point(Constants.CENTER_X, Constants.CENTER_Y);
+            Point position = new Point(Constants.CENTER_X, Constants.CENTER_Y - 60);
 
             Label label = new Label(text, position);
             cast.AddActor(Constants.DIALOG_GROUP, label);   
@@ -377,7 +437,6 @@ namespace MarioRacer.Game.Directing
             // script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));
-            script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService));
             script.AddAction(Constants.OUTPUT, new EndDrawingAction(VideoService));
         }
 
@@ -398,7 +457,6 @@ namespace MarioRacer.Game.Directing
             script.AddAction(Constants.UPDATE, new MoveCarAction());
             // script.AddAction(Constants.UPDATE, new CollideBordersAction(PhysicsService, AudioService));
             // script.AddAction(Constants.UPDATE, new CollideBrickAction(PhysicsService, AudioService));
-            script.AddAction(Constants.UPDATE, new CollideBottomAction(PhysicsService, AudioService));
             // script.AddAction(Constants.UPDATE, new CollideCarAction(PhysicsService, AudioService));
             // script.AddAction(Constants.UPDATE, new CheckOverAction());     
         }

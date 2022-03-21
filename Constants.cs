@@ -23,8 +23,8 @@ namespace MarioRacer
         // ROAD
         public static int ROAD_TOP = 60;
         public static int ROAD_BOTTOM = SCREEN_HEIGHT;
-        public static int ROAD_LEFT = 0;
-        public static int ROAD_RIGHT = SCREEN_WIDTH;
+        public static int ROAD_LEFT = 200;
+        public static int ROAD_RIGHT = 200;
 
         // FONT
         public static string FONT_FILE = "Assets/Fonts/zorque.otf";
@@ -64,6 +64,7 @@ namespace MarioRacer
         // LEVELS
         public static string LEVEL_FILE = "Assets/Data/level-{0:000}.txt";
         public static int BASE_LEVELS = 5;
+        public static int MILES = 1;
 
         // ----------------------------------------------------------------------------------------- 
         // SCRIPTING CONSTANTS
@@ -186,8 +187,16 @@ namespace MarioRacer
         // FINISH LINE
         public static string FINISH_GROUP = "finish";
         public static string FINISH_IMAGE = "Assets/Images/200.png";
-        public static int FINISH_WIDTH = 1040;
-        public static int FINISH_HEIGHT = 100;
+        public static int CHECKERED_WIDTH = 1040;
+        public static int CHECKERED_HEIGHT = 100;
+
+        // START LINE
+        public static string START_GROUP = "start";
+        public static string START_IMAGE = "Assets/Images/201.png";
+
+        // BACKGROUND
+        public static string BACKGROUND_GROUP = "background";
+        public static string BACKGROUND_IMAGE = "Assets/Images/202.png";
 
         // DIALOG
         public static string DIALOG_GROUP = "dialogs";
