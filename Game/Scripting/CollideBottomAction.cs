@@ -9,7 +9,7 @@ namespace MarioRacer.Game.Scripting
     {
         private AudioService audioService;
         private PhysicsService physicsService;
-        
+
         public CollideBottomAction(PhysicsService physicsService, AudioService audioService)
         {
             this.physicsService = physicsService;
@@ -26,24 +26,12 @@ namespace MarioRacer.Game.Scripting
             Sound bounceSound = new Sound(Constants.BOUNCE_SOUND);
             Sound overSound = new Sound(Constants.OVER_SOUND);
 
-            // if (x < Constants.ROAD_LEFT)
-            // {
-            //     ball.BounceX();
-            //     audioService.PlaySound(bounceSound);
-            // }
-            // else if (x >= Constants.ROAD_RIGHT - Constants.FLAG_WIDTH)
-            // {
-            //     ball.BounceX();
-            //     audioService.PlaySound(bounceSound);
-            // }
+            Point velocity = body.GetVelocity();
+            int speed = velocity.GetY();
 
-            // if (y < Constants.ROAD_TOP)
-            // {
-            //     ball.BounceY();
-            //     audioService.PlaySound(bounceSound);
-            // }
-            if (y >= (Constants.ROAD_BOTTOM - 2))
+            if (y >= (Constants.ROAD_BOTTOM - speed))
             {
+                Console.WriteLine(speed);
                 flag.AddMile();
                 Console.WriteLine(flag.GetMileMarker());
 

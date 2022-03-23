@@ -49,6 +49,8 @@ namespace MarioRacer
         // KEYS
         public static string LEFT = "left";
         public static string RIGHT = "right";
+        public static string UP = "up";
+        public static string DOWN = "down";
         public static string SPACE = "space";
         public static string ENTER = "enter";
         public static string PAUSE = "p";
@@ -65,6 +67,10 @@ namespace MarioRacer
         public static string LEVEL_FILE = "Assets/Data/level-{0:000}.txt";
         public static int BASE_LEVELS = 5;
         public static int MILES = 1;
+        public static int SPEED = 8;
+        public static int SLOW = 1;
+        public static int MAX_SPEED = 8;
+        public static int REVERSE = -2;
 
         // ----------------------------------------------------------------------------------------- 
         // SCRIPTING CONSTANTS

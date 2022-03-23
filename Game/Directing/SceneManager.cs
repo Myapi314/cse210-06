@@ -137,6 +137,9 @@ namespace MarioRacer.Game.Directing
             ControlCarAction action = new ControlCarAction(KeyboardService);
             script.AddAction(Constants.INPUT, action);
 
+            ControlSpeedAction speedAction = new ControlSpeedAction(KeyboardService);
+            script.AddAction(Constants.INPUT, speedAction);
+
             script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
 
             script.AddAction(Constants.UPDATE, new MoveFlagAction());
@@ -247,7 +250,7 @@ namespace MarioRacer.Game.Directing
         
             Point position = new Point(x, y);
             Point size = new Point(Constants.FLAG_WIDTH, Constants.FLAG_HEIGHT);
-            Point velocity = new Point(0, 2);
+            Point velocity = new Point(0, 0);
         
             Body body = new Body(position, size, velocity);
             Image image = new Image(Constants.FLAG_IMAGE);
