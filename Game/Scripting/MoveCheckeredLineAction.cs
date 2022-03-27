@@ -3,15 +3,13 @@ namespace MarioRacer.Game.Scripting
 {
     public class MoveCheckeredLineAction : Action
     {
-        private string lineGroup;
-        public MoveCheckeredLineAction(string lineGroup)
+        public MoveCheckeredLineAction()
         {
-            this.lineGroup = lineGroup;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            CheckeredLine checkeredLine = (CheckeredLine)cast.GetFirstActor(lineGroup);
+            CheckeredLine checkeredLine = (CheckeredLine)cast.GetFirstActor(Constants.LINE_GROUP);
             Body body = checkeredLine.GetBody();
             // Point position = body.GetPosition();
             // Point velocity = body.GetVelocity();

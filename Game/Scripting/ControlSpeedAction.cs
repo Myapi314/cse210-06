@@ -21,7 +21,7 @@ namespace MarioRacer.Game.Scripting
             Flag flag = (Flag)cast.GetFirstActor(Constants.FLAG_GROUP);
             Body flagBody = flag.GetBody();
 
-            CheckeredLine startLine = (CheckeredLine)cast.GetFirstActor(Constants.START_GROUP);
+            CheckeredLine startLine = (CheckeredLine)cast.GetFirstActor(Constants.LINE_GROUP);
             Body startBody = startLine.GetBody();
 
             movingActors.Add(flagBody);

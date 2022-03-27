@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using MarioRacer.Game.Casting;
 using MarioRacer.Game.Scripting;
 using MarioRacer.Game.Services;
+using MarioRacer.Game.SceneManaging;
 
 
 namespace MarioRacer.Game.Directing

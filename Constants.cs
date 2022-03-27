@@ -190,14 +190,14 @@ namespace MarioRacer
         public static double FLAG_DELAY = 0.5;
         public static int FLAG_RATE = 4;
 
-        // FINISH LINE
-        public static string FINISH_GROUP = "finish";
+        // CHECKERED LINE
+        public static string LINE_GROUP = "line";
         public static string FINISH_IMAGE = "Assets/Images/200.png";
+        public static int FINISH_POSITION = 0;
         public static int CHECKERED_WIDTH = 1040;
         public static int CHECKERED_HEIGHT = 100;
 
         // START LINE
-        public static string START_GROUP = "start";
         public static string START_IMAGE = "Assets/Images/201.png";
 
         // BACKGROUND

@@ -8,17 +8,15 @@ namespace MarioRacer.Game.Scripting
     public class DrawCheckeredLineAction : Action
     {
         private VideoService videoService;
-        private string lineGroup;
         
-        public DrawCheckeredLineAction(VideoService videoService, string lineGroup)
+        public DrawCheckeredLineAction(VideoService videoService)
         {
             this.videoService = videoService;
-            this.lineGroup = lineGroup;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            CheckeredLine finish = (CheckeredLine)cast.GetFirstActor(lineGroup);
+            CheckeredLine finish = (CheckeredLine)cast.GetFirstActor(Constants.LINE_GROUP);
             Body body = finish.GetBody();
             if (finish.IsDebug())
             {

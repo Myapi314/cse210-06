@@ -1,6 +1,7 @@
 ﻿using System;
 using MarioRacer.Game.Directing;
 using MarioRacer.Game.Services;
+using MarioRacer.Game.SceneManaging;
 
 namespace MarioRacer
 {

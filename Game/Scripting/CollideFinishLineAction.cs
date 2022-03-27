@@ -18,7 +18,7 @@ namespace MarioRacer.Game.Scripting
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            CheckeredLine finish = (CheckeredLine)cast.GetFirstActor(Constants.FINISH_GROUP);
+            CheckeredLine finish = (CheckeredLine)cast.GetFirstActor(Constants.LINE_GROUP);
             Body finishBody = finish.GetBody();
 
             // Sound bounceSound = new Sound(Constants.BOUNCE_SOUND);
