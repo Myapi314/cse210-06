@@ -51,6 +51,7 @@ namespace MarioRacer.Game.SceneManaging
 
         private void PrepareNewGame(Cast cast, Script script)
         {
+            AddBoost(cast);
             AddBackground(cast);
             AddStats(cast);
             AddLevel(cast);
@@ -259,6 +260,24 @@ namespace MarioRacer.Game.SceneManaging
             cast.AddActor(Constants.FLAG_GROUP, flag);
         }
 
+         private void AddBoost(Cast cast)
+        {
+            cast.ClearActors(Constants.BOOST_GROUP);
+            
+            int x = Constants.CENTER_X - Constants.BOOST_WIDTH / 2;
+            int y = 50;
+            
+            Point position = new Point(x, y);
+            Point size = new Point(Constants.BOOST_WIDTH, Constants.BOOST_HEIGHT);
+            Point velocity = new Point(0, 0);
+        
+            Body body = new Body(position, size, velocity);
+            Image image = new Image(Constants.BOOST_IMAGE);
+            Boost boost = new Boost(body, image, false);
+        
+            cast.AddActor(Constants.BOOST_GROUP, boost);
+        }
+
         private void AddBricks(Cast cast)
         {
             cast.ClearActors(Constants.BRICK_GROUP);
@@ -418,7 +437,7 @@ namespace MarioRacer.Game.SceneManaging
         {
             script.AddAction(Constants.OUTPUT, new StartDrawingAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawHudAction(VideoService));
-            // script.AddAction(Constants.OUTPUT, new DrawBallAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawBoostAction(VideoService));
             // script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));
