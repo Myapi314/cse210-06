@@ -5,23 +5,23 @@ using MarioRacer.Game.Services;
 
 namespace MarioRacer.Game.Scripting
 {
-    public class ControlSpeedAction : Action
+    public class ControlP1SpeedAction : Action
     {
         private List<Body> movingActors = new List<Body>();
         private KeyboardService keyboardService;
         private Point velocity;
 
-        public ControlSpeedAction(KeyboardService keyboardService)
+        public ControlP1SpeedAction(KeyboardService keyboardService)
         {
             this.keyboardService = keyboardService;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Flag flag = (Flag)cast.GetFirstActor(Constants.FLAG_GROUP);
+            Flag flag = (Flag)cast.GetFirstActor(Constants.P1_FLAG_GROUP);
             Body flagBody = flag.GetBody();
 
-            CheckeredLine startLine = (CheckeredLine)cast.GetFirstActor(Constants.LINE_GROUP);
+            CheckeredLine startLine = (CheckeredLine)cast.GetFirstActor(Constants.P1_LINE_GROUP);
             Body startBody = startLine.GetBody();
 
             movingActors.Add(flagBody);
@@ -34,7 +34,7 @@ namespace MarioRacer.Game.Scripting
             
             foreach (Body body in movingActors)
             {
-                if (keyboardService.IsKeyDown(Constants.UP))
+                if (keyboardService.IsKeyDown(Constants.P1_UP))
                 {
                     velocity = speed;
 

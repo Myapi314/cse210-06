@@ -15,16 +15,19 @@ namespace MarioRacer
         public static int FRAME_RATE = 60;
 
         // SCREEN
-        public static int SCREEN_WIDTH = 1040;
-        public static int SCREEN_HEIGHT = 680;
+        public static int SCREEN_WIDTH = 1800;
+        public static int SCREEN_HEIGHT = 1000;
         public static int CENTER_X = SCREEN_WIDTH / 2;
         public static int CENTER_Y = SCREEN_HEIGHT / 2;
+        public static int SCREEN_ONE_CENTER_X = CENTER_X / 2;
+        public static int SCREEN_TWO_CENTER_X = SCREEN_ONE_CENTER_X + CENTER_X;
 
         // ROAD
-        public static int ROAD_TOP = 60;
         public static int ROAD_BOTTOM = SCREEN_HEIGHT;
-        public static int ROAD_LEFT = 200;
-        public static int ROAD_RIGHT = 200;
+        public static int P1_ROAD_LEFT = 200;
+        public static int P1_ROAD_RIGHT = CENTER_X - 250;
+        public static int P2_ROAD_LEFT = CENTER_X + 200;
+        public static int P2_ROAD_RIGHT = SCREEN_WIDTH - 250;
 
         // FONT
         public static string FONT_FILE = "Assets/Fonts/zorque.otf";
@@ -47,13 +50,16 @@ namespace MarioRacer
         public static Color PURPLE = new Color(255, 0, 255);
 
         // KEYS
-        public static string LEFT = "left";
-        public static string RIGHT = "right";
-        public static string UP = "up";
+        public static string P2_LEFT = "left";
+        public static string P2_RIGHT = "right";
+        public static string P2_UP = "up";
         public static string DOWN = "down";
         public static string SPACE = "space";
         public static string ENTER = "enter";
         public static string PAUSE = "p";
+        public static string P1_UP = "w";
+        public static string P1_LEFT = "a";
+        public static string P1_RIGHT = "d";
 
         // SCENES
         public static string NEW_GAME = "new_game";
@@ -111,15 +117,36 @@ namespace MarioRacer
         public static int BALL_VELOCITY = 6;
 
         // CAR
-        public static string CAR_GROUP = "cars";
+        public static string P1_CAR_GROUP = "playerOneCar";
+        public static string P2_CAR_GROUP = "playerTwoCar";
         
-        public static List<string> CAR_IMAGES
+        public static List<string> YELLOW_CAR_IMAGES
             = new List<string>() {
                 "Assets/Images/100.png",
                 "Assets/Images/101.png",
                 "Assets/Images/102.png"
             };
 
+        public static List<string> GREEN_CAR_IMAGES
+            = new List<string>() {
+                "Assets/Images/110.png",
+                "Assets/Images/111.png",
+                "Assets/Images/112.png"
+            };
+
+        public static List<string> BLUE_CAR_IMAGES
+            = new List<string>() {
+                "Assets/Images/120.png",
+                "Assets/Images/121.png",
+                "Assets/Images/122.png"
+            };
+
+        public static List<string> RED_CAR_IMAGES
+            = new List<string>() {
+                "Assets/Images/130.png",
+                "Assets/Images/131.png",
+                "Assets/Images/132.png"
+            };
         public static int CAR_WIDTH = 106;
         public static int CAR_HEIGHT = 200;
         public static int CAR_RATE = 6;
@@ -183,7 +210,8 @@ namespace MarioRacer
         public static int BRICK_POINTS = 50;
 
         // FLAG
-        public static string FLAG_GROUP = "flag";
+        public static string P1_FLAG_GROUP = "p1_flag";
+        public static string P2_FLAG_GROUP = "p2_flag";
         public static string FLAG_IMAGE = "Assets/Images/flag.png";
         public static int FLAG_WIDTH = 100;
         public static int FLAG_HEIGHT = 35;
@@ -191,10 +219,11 @@ namespace MarioRacer
         public static int FLAG_RATE = 4;
 
         // CHECKERED LINE
-        public static string LINE_GROUP = "line";
+        public static string P1_LINE_GROUP = "p1_line";
+        public static string P2_LINE_GROUP = "p2_line";
         public static string FINISH_IMAGE = "Assets/Images/200.png";
         public static int FINISH_POSITION = 0;
-        public static int CHECKERED_WIDTH = 1040;
+        public static int CHECKERED_WIDTH = 900;
         public static int CHECKERED_HEIGHT = 100;
 
         // START LINE
@@ -202,7 +231,9 @@ namespace MarioRacer
 
         // BACKGROUND
         public static string BACKGROUND_GROUP = "background";
-        public static string BACKGROUND_IMAGE = "Assets/Images/202.png";
+        public static int BACKGROUND_WIDTH = 900;
+        public static int BACKGROUND_HEIGHT = SCREEN_HEIGHT;
+        public static string BACKGROUND_IMAGE = "Assets/Images/203.png";
 
         // DIALOG
         public static string DIALOG_GROUP = "dialogs";

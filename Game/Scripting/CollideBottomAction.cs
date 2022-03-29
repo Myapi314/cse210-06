@@ -9,16 +9,19 @@ namespace MarioRacer.Game.Scripting
     {
         private AudioService audioService;
         private PhysicsService physicsService;
+        private string flagGroup;
 
-        public CollideBottomAction(PhysicsService physicsService, AudioService audioService)
+        public CollideBottomAction(PhysicsService physicsService, AudioService audioService, string flagGroup)
         {
             this.physicsService = physicsService;
             this.audioService = audioService;
+            this.flagGroup = flagGroup;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Flag flag = (Flag)cast.GetFirstActor(Constants.FLAG_GROUP);
+            Flag flag = (Flag)cast.GetFirstActor(flagGroup);
+            
             Body body = flag.GetBody();
             Point position = body.GetPosition();
             int x = position.GetX();

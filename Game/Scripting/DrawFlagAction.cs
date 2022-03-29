@@ -8,15 +8,17 @@ namespace MarioRacer.Game.Scripting
     public class DrawFlagAction : Action
     {
         private VideoService videoService;
+        private string flagGroup;
         
-        public DrawFlagAction(VideoService videoService)
+        public DrawFlagAction(VideoService videoService, string flagGroup)
         {
             this.videoService = videoService;
+            this.flagGroup = flagGroup;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Flag flag = (Flag)cast.GetFirstActor(Constants.FLAG_GROUP);
+            Flag flag = (Flag)cast.GetFirstActor(flagGroup);
             Body body = flag.GetBody();
             if (flag.IsDebug())
             {

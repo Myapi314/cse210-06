@@ -16,20 +16,25 @@ namespace MarioRacer.Game.Scripting
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Background background = (Background)cast.GetFirstActor(Constants.BACKGROUND_GROUP);
-            Body body = background.GetBody();
+            List<Actor> backgrounds = cast.GetActors(Constants.BACKGROUND_GROUP);
 
-            if (background.IsDebug())
+            foreach(Actor actor in backgrounds)
             {
-                Rectangle rectangle = body.GetRectangle();
-                Point size = rectangle.GetSize();
-                Point pos = rectangle.GetPosition();
-                videoService.DrawRectangle(size, pos, Constants.PURPLE, false);
+                Background background = (Background)actor;
+                Body body = background.GetBody();
+
+                if (background.IsDebug())
+                {
+                    Rectangle rectangle = body.GetRectangle();
+                    Point size = rectangle.GetSize();
+                    Point pos = rectangle.GetPosition();
+                    videoService.DrawRectangle(size, pos, Constants.PURPLE, false);
+                }
+                Image image = background.GetImage();
+                // Image image = animation.NextImage();
+                Point position = body.GetPosition();
+                videoService.DrawImage(image, position);
             }
-            Image image = background.GetImage();
-            // Image image = animation.NextImage();
-            Point position = body.GetPosition();
-            videoService.DrawImage(image, position);
         }
     }
 }
