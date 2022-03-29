@@ -43,7 +43,7 @@ namespace MarioRacer.Game.SceneManaging
 
             Flag flag = new Flag(body, image, 0, false);
 
-            cast.AddActor(Constants.P1_FLAG_GROUP, flag);
+            cast.AddActor(flagGroup, flag);
         }
 
         private void AddBoost(Cast cast)
@@ -66,8 +66,7 @@ namespace MarioRacer.Game.SceneManaging
         private void AddInputActions(Script script, KeyboardService keyboardService)
         {
             script.AddAction(Constants.INPUT, new ControlCarAction(keyboardService));
-            script.AddAction(Constants.INPUT, new ControlP1SpeedAction(keyboardService));
-            script.AddAction(Constants.INPUT, new ControlP2SpeedAction(keyboardService));
+            script.AddAction(Constants.INPUT, new ControlSpeedAction(keyboardService));
         }
 
         private void AddOutputActions(Script script, VideoService videoService)

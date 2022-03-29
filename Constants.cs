@@ -66,7 +66,8 @@ namespace MarioRacer
         public static string TRY_AGAIN = "try_again";
         public static string NEXT_LEVEL = "next_level";
         public static string IN_PLAY = "in_play";
-        public static string FINISH_SCENE = "finish_scene";
+        public static string P1_FINISH_SCENE = "p1_finish_scene";
+        public static string P2_FINISH_SCENE = "p2_finish_scene";
         public static string GAME_OVER = "game_over";
 
         // LEVELS

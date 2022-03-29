@@ -9,38 +9,60 @@ namespace MarioRacer.Game.Scripting
     {
         private AudioService audioService;
         private PhysicsService physicsService;
-        private string flagGroup;
 
-        public CollideBottomAction(PhysicsService physicsService, AudioService audioService, string flagGroup)
+        public CollideBottomAction(PhysicsService physicsService, AudioService audioService)
         {
             this.physicsService = physicsService;
             this.audioService = audioService;
-            this.flagGroup = flagGroup;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            Flag flag = (Flag)cast.GetFirstActor(flagGroup);
+            // P1 Flag
+            Flag p1_flag = (Flag)cast.GetFirstActor(Constants.P1_FLAG_GROUP);
             
-            Body body = flag.GetBody();
-            Point position = body.GetPosition();
-            int x = position.GetX();
-            int y = position.GetY();
+            Body p1_body = p1_flag.GetBody();
+            Point p1_position = p1_body.GetPosition();
+            int y1 = p1_position.GetY();
+
+            Point p1_velocity = p1_body.GetVelocity();
+            int p1_speed = p1_velocity.GetY();
+
+            // P2 Flag
+            Flag p2_flag = (Flag)cast.GetFirstActor(Constants.P2_FLAG_GROUP);
+            
+            Body p2_body = p2_flag.GetBody();
+            Point p2_position = p2_body.GetPosition();
+            int y2 = p2_position.GetY();
+
+            Point p2_velocity = p2_body.GetVelocity();
+            int p2_speed = p2_velocity.GetY();
+
             Sound bounceSound = new Sound(Constants.BOUNCE_SOUND);
             Sound overSound = new Sound(Constants.OVER_SOUND);
 
-            Point velocity = body.GetVelocity();
-            int speed = velocity.GetY();
-
-            if (y >= (Constants.ROAD_BOTTOM - speed))
+            if (y1 >= (Constants.ROAD_BOTTOM - p1_speed))
             {
-                Console.WriteLine(speed);
-                flag.AddMile();
-                Console.WriteLine(flag.GetMileMarker());
+                Console.WriteLine(p1_speed);
+                p1_flag.AddMile();
+                Console.WriteLine(p1_flag.GetMileMarker());
 
-                if (flag.GetMileMarker() > Constants.MILES)
+                if (p1_flag.GetMileMarker() > Constants.MILES)
                 {
-                    callback.OnNext(Constants.FINISH_SCENE);
+                    callback.OnNext(Constants.P1_FINISH_SCENE);
+                    audioService.PlaySound(overSound);
+                }
+            }
+
+            if (y2 >= (Constants.ROAD_BOTTOM - p2_speed))
+            {
+                Console.WriteLine(p2_speed);
+                p2_flag.AddMile();
+                Console.WriteLine(p2_flag.GetMileMarker());
+
+                if (p2_flag.GetMileMarker() > Constants.MILES)
+                {
+                    callback.OnNext(Constants.P2_FINISH_SCENE);
                     audioService.PlaySound(overSound);
                 }
                 // else

@@ -10,40 +10,35 @@ namespace MarioRacer.Game.Scripting
     {
         private AudioService audioService;
         private PhysicsService physicsService;
+        private string lineGroup;
+        private string carGroup;
         
-        public CollideFinishLineAction(PhysicsService physicsService, AudioService audioService)
+        public CollideFinishLineAction(PhysicsService physicsService, AudioService audioService, string lineGroup, string carGroup)
         {
             this.physicsService = physicsService;
             this.audioService = audioService;
+            this.lineGroup = lineGroup;
+            this.carGroup = carGroup;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            CheckeredLine p1_line = (CheckeredLine)cast.GetFirstActor(Constants.P1_LINE_GROUP);
-            CheckeredLine p2_line = (CheckeredLine)cast.GetFirstActor(Constants.P2_LINE_GROUP);
+            CheckeredLine line = (CheckeredLine)cast.GetFirstActor(lineGroup);
             
-            Body p1_body = p1_line.GetBody();
-            Body p2_body = p2_line.GetBody();
+            Body body = line.GetBody();
 
             // Sound bounceSound = new Sound(Constants.BOUNCE_SOUND);
             // Sound overSound = new Sound(Constants.OVER_SOUND);
 
-            Car p1_car = (Car)cast.GetFirstActor(Constants.P1_CAR_GROUP);
-            Car p2_car = (Car)cast.GetFirstActor(Constants.P2_CAR_GROUP);
+            Car car = (Car)cast.GetFirstActor(carGroup);
   
-            Body p1_car_body = p1_car.GetBody();
-            Body p2_car_body = p2_car.GetBody();
+            Body car_body = car.GetBody();
 
             
-            if(physicsService.HasCollided(p1_body, p1_car_body))
+            if(physicsService.HasCollided(body, car_body))
             {
                 callback.OnNext(Constants.GAME_OVER);
             }
-            if(physicsService.HasCollided(p2_body, p2_car_body))
-            {
-                callback.OnNext(Constants.GAME_OVER);
-            }
-
         }
     }
 }
