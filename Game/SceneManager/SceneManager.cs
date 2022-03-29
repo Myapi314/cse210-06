@@ -215,7 +215,6 @@ namespace MarioRacer.Game.SceneManaging
         // -----------------------------------------------------------------------------------------
         // casting methods
         // -----------------------------------------------------------------------------------------
-
         private void AddLine(Cast cast, string lineImage, int y_position)
         {
             cast.ClearActors(Constants.P1_LINE_GROUP);
@@ -328,7 +327,7 @@ namespace MarioRacer.Game.SceneManaging
         {
             script.AddAction(Constants.OUTPUT, new StartDrawingAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawHudAction(VideoService));
-            // script.AddAction(Constants.OUTPUT, new DrawBallAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawBoostAction(VideoService));
             // script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));

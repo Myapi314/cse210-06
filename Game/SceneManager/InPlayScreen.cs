@@ -46,6 +46,23 @@ namespace MarioRacer.Game.SceneManaging
             cast.AddActor(Constants.P1_FLAG_GROUP, flag);
         }
 
+        private void AddBoost(Cast cast)
+        {
+            cast.ClearActors(Constants.BOOST_GROUP);
+            
+            int x = Constants.CENTER_X - Constants.BOOST_WIDTH / 2;
+            int y = 50;
+            
+            Point position = new Point(x, y);
+            Point size = new Point(Constants.BOOST_WIDTH, Constants.BOOST_HEIGHT);
+            Point velocity = new Point(0, 0);
+        
+            Body body = new Body(position, size, velocity);
+            Image image = new Image(Constants.BOOST_IMAGE);
+            Boost boost = new Boost(body, image, false);
+        
+            cast.AddActor(Constants.BOOST_GROUP, boost);
+        }
         private void AddInputActions(Script script, KeyboardService keyboardService)
         {
             script.AddAction(Constants.INPUT, new ControlCarAction(keyboardService));

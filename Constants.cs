@@ -209,6 +209,12 @@ namespace MarioRacer
         public static int BRICK_RATE = 4;
         public static int BRICK_POINTS = 50;
 
+         //SPEED BOOST
+        public static string BOOST_GROUP = "boost";
+        public static string BOOST_IMAGE = "Assets/Images/000.png";
+        public static int BOOST_WIDTH = 100;
+        public static int BOOST_HEIGHT = 100;
+
         // FLAG
         public static string P1_FLAG_GROUP = "p1_flag";
         public static string P2_FLAG_GROUP = "p2_flag";
