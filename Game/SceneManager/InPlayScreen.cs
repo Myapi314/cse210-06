@@ -35,6 +35,7 @@ namespace MarioRacer.Game.SceneManaging
 
         private void AddFlag(Cast cast)
         {
+            cast.ClearActors(flagGroup);
             Point position = new Point(start_x, start_y);
             Point size = new Point(Constants.FLAG_WIDTH, Constants.FLAG_HEIGHT);
             

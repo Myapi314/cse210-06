@@ -50,7 +50,7 @@ namespace MarioRacer.Game.SceneManaging
 
         private void AddCar(Cast cast, string carGroup, List<string> carImages)
         {
-
+            cast.ClearActors(carGroup);
             int x = center_x - Constants.CAR_WIDTH / 2;
             int y = Constants.SCREEN_HEIGHT - Constants.CAR_HEIGHT;
 
@@ -66,6 +66,7 @@ namespace MarioRacer.Game.SceneManaging
 
         private void AddStartLine(Cast cast)
         {
+            cast.ClearActors(lineGroup);
             int y = (Constants.SCREEN_HEIGHT - (Constants.CAR_HEIGHT + Constants.CHECKERED_HEIGHT));
         
             Point position = new Point(start_x, y);

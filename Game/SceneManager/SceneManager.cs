@@ -43,10 +43,6 @@ namespace MarioRacer.Game.SceneManaging
                 p2_start_screen.PrepareNewScene(cast);
                 PrepareNewGame(cast, script);
             }
-            else if (scene == Constants.TRY_AGAIN)
-            {
-                PrepareTryAgain(cast, script);
-            }
             else if (scene == Constants.IN_PLAY)
             {
                 script.ClearAllActions();
