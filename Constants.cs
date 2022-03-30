@@ -250,7 +250,7 @@ namespace MarioRacer
         //BULLET
             public static string P1_BULLET_GROUP = "p1_bullet";
             public static string P2_BULLET_GROUP = "p2_bullet";
-            public static string BULLET_IMAGE = "Assets/Images/310.png";
+            public static string BULLET_IMAGE = "Assets/Images/313.png";
             public static int BULLET_WIDTH = 50;
             public static int BULLET_HEIGHT = 50;
 
