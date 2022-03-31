@@ -10,20 +10,25 @@ namespace MarioRacer.Game.Scripting
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
+            Background p1_background = (Background)cast.GetFirstActor(Constants.BACKGROUND_GROUP);
+
             Car car = (Car)cast.GetFirstActor(Constants.P1_CAR_GROUP);
             Body body = car.GetBody();
             Point position = body.GetPosition();
             Point velocity = body.GetVelocity();
             int x = position.GetX();
 
+            int roadLeft = p1_background.GetRoadLeft();
+            int roadRight = p1_background.GetRoadRight();
+
             position = position.Add(velocity);
-            if (x < Constants.P1_ROAD_LEFT)
+            if (x < roadLeft)
             {
-                position = new Point(Constants.P1_ROAD_LEFT, position.GetY());
+                position = new Point(roadLeft, position.GetY());
             }
-            else if (x > Constants.P1_ROAD_RIGHT)
+            else if (x > roadRight)
             {
-                position = new Point(Constants.P1_ROAD_RIGHT, 
+                position = new Point(roadRight, 
                     position.GetY());
             }
 

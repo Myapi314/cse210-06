@@ -24,6 +24,8 @@ namespace MarioRacer
 
         // ROAD
         public static int ROAD_BOTTOM = SCREEN_HEIGHT;
+        public static int ROAD_LEFT = 200;
+        public static int ROAD_RIGHT = 250;
         public static int P1_ROAD_LEFT = 200;
         public static int P1_ROAD_RIGHT = CENTER_X - 250;
         public static int P2_ROAD_LEFT = CENTER_X + 200;
