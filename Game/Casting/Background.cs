@@ -34,5 +34,26 @@ namespace MarioRacer.Game.Casting
         {
             return body;
         }
+
+        public int GetRoadLeft()
+        {
+            Point position = body.GetPosition();
+            int xLeft = position.GetX();
+
+            int roadLeft = xLeft + Constants.ROAD_LEFT;
+
+            return roadLeft;
+        }
+
+        public int GetRoadRight()
+        {
+            Point position = body.GetPosition();
+            int xLeft = position.GetX();
+
+            int xRight = xLeft + Constants.BACKGROUND_WIDTH;
+            int roadRight = xRight - Constants.ROAD_RIGHT;
+
+            return roadRight;
+        }
     }
 }

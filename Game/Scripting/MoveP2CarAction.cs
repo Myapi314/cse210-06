@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MarioRacer.Game.Casting;
 
 namespace MarioRacer.Game.Scripting
@@ -10,20 +11,26 @@ namespace MarioRacer.Game.Scripting
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
+            List<Actor> actors = cast.GetActors(Constants.BACKGROUND_GROUP);
+            Background p2_background = (Background)actors[1];
+
             Car car = (Car)cast.GetFirstActor(Constants.P2_CAR_GROUP);
             Body body = car.GetBody();
             Point position = body.GetPosition();
             Point velocity = body.GetVelocity();
             int x = position.GetX();
 
+            int roadLeft = p2_background.GetRoadLeft();
+            int roadRight = p2_background.GetRoadRight();
+
             position = position.Add(velocity);
-            if (x < Constants.P2_ROAD_LEFT)
+            if (x < roadLeft)
             {
-                position = new Point(Constants.P2_ROAD_LEFT, position.GetY());
+                position = new Point(roadLeft, position.GetY());
             }
-            else if (x > Constants.P2_ROAD_RIGHT)
+            else if (x > roadRight)
             {
-                position = new Point(Constants.P2_ROAD_RIGHT, 
+                position = new Point(roadRight, 
                     position.GetY());
             }
 
