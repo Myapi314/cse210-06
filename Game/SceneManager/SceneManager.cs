@@ -284,7 +284,7 @@ namespace MarioRacer.Game.SceneManaging
         {
             script.AddAction(Constants.OUTPUT, new StartDrawingAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawHudAction(VideoService));
-            // script.AddAction(Constants.OUTPUT, new DrawBoostAction(VideoService));
+            //script.AddAction(Constants.OUTPUT, new DrawBoostAction(VideoService));
             // script.AddAction(Constants.OUTPUT, new DrawBricksAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));

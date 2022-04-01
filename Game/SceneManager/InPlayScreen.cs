@@ -85,6 +85,7 @@ namespace MarioRacer.Game.SceneManaging
             script.AddAction(Constants.OUTPUT, new DrawFlagAction(videoService, groups[Constants.FLAG_INDEX]));
             script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(videoService, groups[Constants.LINE_INDEX]));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(videoService));
+            script.AddAction(Constants.OUTPUT, new DrawBoostAction(videoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(videoService));
             script.AddAction(Constants.OUTPUT, new EndDrawingAction(videoService));
         }
