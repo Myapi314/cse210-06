@@ -3,7 +3,7 @@ namespace MarioRacer.Game.Casting{
     {
         private Body body;
         private Animation animation;
-        public Coin(Body body, Animation animation, bool debug) : base(debug)
+        public Coin(Body body, Animation animation, bool debug) : base(debug, body)
         {
             this.body = body;
             this.animation = animation;
@@ -22,12 +22,6 @@ namespace MarioRacer.Game.Casting{
         /// Gets the body.
         /// </summary>
         /// <returns>The body.</returns>
-        public Body GetBody()
-        {
-            return body;
-        }
-
-
     }
 
 }
