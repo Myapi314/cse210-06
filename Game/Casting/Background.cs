@@ -11,7 +11,7 @@ namespace MarioRacer.Game.Casting
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
-        public Background(Body body, Image image, bool debug = false) : base(debug)
+        public Background(Body body, Image image, bool debug = false) : base(debug, body)
         {
             this.body = body;
             this.image = image;
@@ -24,15 +24,6 @@ namespace MarioRacer.Game.Casting
         public Image GetImage()
         {
             return image;
-        }
-
-        /// <summary>
-        /// Gets the body.
-        /// </summary>
-        /// <returns>The body.</returns>
-        public Body GetBody()
-        {
-            return body;
         }
 
         public int GetRoadLeft()

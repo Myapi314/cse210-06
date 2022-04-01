@@ -18,6 +18,11 @@ namespace MarioRacer.Game.SceneManaging
 
         public void PrepareFinishScene(Cast cast)
         {
+            // cast.ClearActors(Constants.P1_FLAG_GROUP);
+            // cast.ClearActors(Constants.P2_FLAG_GROUP);
+            // cast.ClearActors(Constants.P1_BOOST_GROUP);
+            // cast.ClearActors(Constants.P2_BOOST_GROUP);
+
             AddFinish(cast);
         }
 

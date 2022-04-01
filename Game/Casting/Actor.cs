@@ -6,13 +6,15 @@ namespace MarioRacer.Game.Casting
     public class Actor
     {
         private bool debug;
+        private Body body;
         
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
-        public Actor(bool debug)
+        public Actor(bool debug, Body body)
         {
             this.debug = debug;
+            this.body = body;
         }
 
         /// <summary>
@@ -22,6 +24,11 @@ namespace MarioRacer.Game.Casting
         public bool IsDebug()
         {
             return debug;
+        }
+
+        public Body GetBody()
+        {
+            return body;
         }
     }
 }

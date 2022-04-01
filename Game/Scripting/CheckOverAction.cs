@@ -18,7 +18,7 @@ namespace MarioRacer.Game.Scripting
             {
                 Stats stats = (Stats)cast.GetFirstActor(Constants.STATS_GROUP);
                 stats.AddLevel();
-                callback.OnNext(Constants.NEXT_LEVEL);
+                callback.OnNext(Constants.NEW_GAME);//used to be NEXT_LEVEL
             }
         }
     }

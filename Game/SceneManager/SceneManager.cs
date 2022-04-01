@@ -16,6 +16,12 @@ namespace MarioRacer.Game.SceneManaging
         public static PhysicsService PhysicsService = new RaylibPhysicsService();
         public static VideoService VideoService = new RaylibVideoService(Constants.GAME_NAME,
             Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, Constants.BLACK);
+        private List<string> p1_cast_groups = new List<string>() {
+            Constants.P1_CAR_GROUP, Constants.P1_BOOST_GROUP, Constants.P1_FLAG_GROUP, Constants.P1_LINE_GROUP
+        };
+        private List<string> p2_cast_groups = new List<string>() {
+            Constants.P2_CAR_GROUP, Constants.P2_BOOST_GROUP, Constants.P2_FLAG_GROUP, Constants.P2_LINE_GROUP
+        };
 
         public SceneManager()
         {
@@ -29,9 +35,9 @@ namespace MarioRacer.Game.SceneManaging
                 Constants.P2_CAR_GROUP, Constants.YELLOW_CAR_IMAGES, Constants.P2_LINE_GROUP);
 
             InPlayScreen p1_inPlay_screen = new InPlayScreen(0, 0, 
-                Constants.P1_FLAG_GROUP, Constants.P1_LINE_GROUP);
+                p1_cast_groups);
             InPlayScreen p2_inPlay_screen = new InPlayScreen(Constants.CENTER_X, 0, 
-                Constants.P2_FLAG_GROUP, Constants.P2_LINE_GROUP);
+                p2_cast_groups);
 
             FinishScreen p1_finish_screen = new FinishScreen(0, 0, Constants.P1_LINE_GROUP);
             FinishScreen p2_finish_screen = new FinishScreen(Constants.CENTER_X, 0, Constants.P2_LINE_GROUP);
@@ -45,6 +51,12 @@ namespace MarioRacer.Game.SceneManaging
             }
             else if (scene == Constants.IN_PLAY)
             {
+                List<string> P1inPlayActors = new List<string>() {
+                    Constants.P1_FLAG_GROUP, Constants.P1_LINE_GROUP, Constants.P1_BOOST_GROUP
+                };
+                List<string> P2inPlayActors = new List<string>() {
+                    Constants.P2_FLAG_GROUP, Constants.P2_LINE_GROUP, Constants.P2_BOOST_GROUP
+                };
                 script.ClearAllActions();
                 p1_inPlay_screen.PrepareInPlayScene(cast, script, 
                     VideoService, KeyboardService);
@@ -52,16 +64,20 @@ namespace MarioRacer.Game.SceneManaging
                     VideoService, KeyboardService);
 
                 script.AddAction(Constants.INPUT, new ControlCarAction(KeyboardService));
-                script.AddAction(Constants.INPUT, new ControlSpeedAction(KeyboardService));
+                script.AddAction(Constants.INPUT, new ControlP1SpeedAction(KeyboardService, PhysicsService, P1inPlayActors));
+                script.AddAction(Constants.INPUT, new ControlP2SpeedAction(KeyboardService, P2inPlayActors));
 
                 script.AddAction(Constants.UPDATE, new MoveP1CarAction());
 
                 script.AddAction(Constants.UPDATE, new MoveP2CarAction());
+                script.AddAction(Constants.UPDATE, new CollideBoostAction(PhysicsService, AudioService, P1inPlayActors, P2inPlayActors));
                 script.AddAction(Constants.UPDATE, new MoveFlagAction());
+                script.AddAction(Constants.UPDATE, new MoveBoostAction());
                 script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P1_LINE_GROUP));
                 script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P2_LINE_GROUP));
 
                 script.AddAction(Constants.UPDATE, new CollideBottomAction(PhysicsService, AudioService));
+;
 
 
                 script.AddAction(Constants.OUTPUT, new StartDrawingAction(VideoService));
@@ -70,6 +86,7 @@ namespace MarioRacer.Game.SceneManaging
                 script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService, Constants.P1_FLAG_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P1_LINE_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService, Constants.P2_FLAG_GROUP));
+                script.AddAction(Constants.OUTPUT, new DrawBoostAction(VideoService));
                 script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P2_LINE_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
                 script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));
@@ -79,7 +96,6 @@ namespace MarioRacer.Game.SceneManaging
             }
             else if (scene == Constants.P1_FINISH_SCENE || scene == Constants.P2_FINISH_SCENE)
             {
-
                 if (scene == Constants.P1_FINISH_SCENE)
                 {
                     p1_finish_screen.PrepareFinishScene(cast);
@@ -92,9 +108,7 @@ namespace MarioRacer.Game.SceneManaging
                     p2_finish_screen.PrepareFinishScene(cast);
                     script.AddAction(Constants.UPDATE, 
                         new CollideFinishLineAction(PhysicsService, AudioService, Constants.P2_LINE_GROUP, Constants.P2_CAR_GROUP));
-                }
-
-            
+                }            
             }
             else if (scene == Constants.GAME_OVER)
             {
@@ -124,12 +138,6 @@ namespace MarioRacer.Game.SceneManaging
             AddOutputActions(script);
             AddUnloadActions(script);
             AddReleaseActions(script);
-        }
-
-        private void ActivateBall(Cast cast)
-        {
-            Ball ball = (Ball)cast.GetFirstActor(Constants.BALL_GROUP);
-            ball.Release();
         }
         private void PrepareTryAgain(Cast cast, Script script)
         {
@@ -270,7 +278,7 @@ namespace MarioRacer.Game.SceneManaging
         private void AddInputActions(Script script)
         {
             script.AddAction(Constants.INPUT, new ControlCarAction(KeyboardService));
-            script.AddAction(Constants.INPUT, new ControlSpeedAction(KeyboardService));
+            // script.AddAction(Constants.INPUT, new ControlSpeedAction(KeyboardService));
         }
         private void AddOutputActions(Script script)
         {

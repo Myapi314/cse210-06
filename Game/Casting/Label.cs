@@ -7,11 +7,13 @@ namespace MarioRacer.Game.Casting
     {
         private Text text;
         private Point position;
+        private static Point point = new Point(0, 0);
+        private static Body body = new Body(point, point, point);
 
         /// <summary>
         /// Constructs a new instance of Label.
         /// </summary>
-        public Label(Text text, Point position) : base(false)
+        public Label(Text text, Point position) : base(false, body)
         {
             this.text = text;
             this.position = position;

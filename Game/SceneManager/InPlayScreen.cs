@@ -13,21 +13,24 @@ namespace MarioRacer.Game.SceneManaging
         private int start_y;
         // private int center_x;
         private Point velocity = new Point(0, 0);
-        private string flagGroup;
-        private string lineGroup;
+        private List<string> groups = new List<string>();
 
-        public InPlayScreen(int x, int y, string flagGroup, string lineGroup)
+        public InPlayScreen(int start_x, int start_y, List<string> groups)
         {
-            this.start_x = x;
-            this.start_y = y;
-            this.flagGroup = flagGroup;
-            this.lineGroup = lineGroup;
+            this.start_x = start_x;
+            this.start_y = start_y;
+            this.groups = groups;
         }
 
         public void PrepareInPlayScene(Cast cast, Script script, VideoService videoService, KeyboardService keyboardService)
         {
             cast.ClearActors(Constants.DIALOG_GROUP);
             AddFlag(cast);
+
+            for(int i = 0; i < Constants.DEFAULT_BOOST; i++)
+            {
+                AddBoost(cast);
+            }
             // AddInputActions(script, keyboardService);
             // AddOutputActions(script, videoService);
             // AddUpdateActions(script);
@@ -35,6 +38,7 @@ namespace MarioRacer.Game.SceneManaging
 
         private void AddFlag(Cast cast)
         {
+            string flagGroup = groups[Constants.FLAG_INDEX];
             cast.ClearActors(flagGroup);
             Point position = new Point(start_x, start_y);
             Point size = new Point(Constants.FLAG_WIDTH, Constants.FLAG_HEIGHT);
@@ -49,25 +53,28 @@ namespace MarioRacer.Game.SceneManaging
 
         private void AddBoost(Cast cast)
         {
-            cast.ClearActors(Constants.BOOST_GROUP);
+            string boostGroup = groups[Constants.BOOST_INDEX];
+            // cast.ClearActors(boostGroup);
             
-            int x = Constants.CENTER_X - Constants.BOOST_WIDTH / 2;
+            Random random = new Random();
+            int roadleft = start_x + Constants.ROAD_LEFT;
+            int roadRight = (start_x + Constants.BACKGROUND_WIDTH) - Constants.ROAD_RIGHT;
+            int x = random.Next(roadleft, roadRight);
             int y = 50;
             
             Point position = new Point(x, y);
             Point size = new Point(Constants.BOOST_WIDTH, Constants.BOOST_HEIGHT);
-            Point velocity = new Point(0, 0);
         
             Body body = new Body(position, size, velocity);
             Image image = new Image(Constants.BOOST_IMAGE);
             Boost boost = new Boost(body, image, false);
         
-            cast.AddActor(Constants.BOOST_GROUP, boost);
+            cast.AddActor(boostGroup, boost);
         }
         private void AddInputActions(Script script, KeyboardService keyboardService)
         {
             script.AddAction(Constants.INPUT, new ControlCarAction(keyboardService));
-            script.AddAction(Constants.INPUT, new ControlSpeedAction(keyboardService));
+            // script.AddAction(Constants.INPUT, new ControlP1SpeedAction(keyboardService));
         }
 
         private void AddOutputActions(Script script, VideoService videoService)
@@ -75,8 +82,8 @@ namespace MarioRacer.Game.SceneManaging
             script.AddAction(Constants.OUTPUT, new StartDrawingAction(videoService));
             script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(videoService));
             script.AddAction(Constants.OUTPUT, new DrawHudAction(videoService));
-            script.AddAction(Constants.OUTPUT, new DrawFlagAction(videoService, flagGroup));
-            script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(videoService, lineGroup));
+            script.AddAction(Constants.OUTPUT, new DrawFlagAction(videoService, groups[Constants.FLAG_INDEX]));
+            script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(videoService, groups[Constants.LINE_INDEX]));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(videoService));
             script.AddAction(Constants.OUTPUT, new DrawDialogAction(videoService));
             script.AddAction(Constants.OUTPUT, new EndDrawingAction(videoService));
@@ -87,7 +94,7 @@ namespace MarioRacer.Game.SceneManaging
             script.AddAction(Constants.UPDATE, new MoveP1CarAction());
             script.AddAction(Constants.UPDATE, new MoveP2CarAction());
             script.AddAction(Constants.UPDATE, new MoveFlagAction());
-            script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(lineGroup));
+            script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(groups[Constants.LINE_INDEX]));
         }
     }
 }

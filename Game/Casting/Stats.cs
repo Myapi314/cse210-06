@@ -8,12 +8,14 @@ namespace MarioRacer.Game.Casting
         private int level;
         private int lives;
         private int score;
+        private static Point point = new Point(0,0);
+        private static Body body = new Body(point, point, point);
 
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
         public Stats(int level = 1, int lives = 3, int score = 0, 
-                bool debug = false) : base(debug)
+                bool debug = false) : base(debug, body)
         {
             this.level = level;
             this.lives = lives;

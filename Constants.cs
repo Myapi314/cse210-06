@@ -26,10 +26,6 @@ namespace MarioRacer
         public static int ROAD_BOTTOM = SCREEN_HEIGHT;
         public static int ROAD_LEFT = 200;
         public static int ROAD_RIGHT = 250;
-        public static int P1_ROAD_LEFT = 200;
-        public static int P1_ROAD_RIGHT = CENTER_X - 250;
-        public static int P2_ROAD_LEFT = CENTER_X + 200;
-        public static int P2_ROAD_RIGHT = SCREEN_WIDTH - 250;
 
         // FONT
         public static string FONT_FILE = "Assets/Fonts/zorque.otf";
@@ -65,8 +61,6 @@ namespace MarioRacer
 
         // SCENES
         public static string NEW_GAME = "new_game";
-        public static string TRY_AGAIN = "try_again";
-        public static string NEXT_LEVEL = "next_level";
         public static string IN_PLAY = "in_play";
         public static string P1_FINISH_SCENE = "p1_finish_scene";
         public static string P2_FINISH_SCENE = "p2_finish_scene";
@@ -75,10 +69,12 @@ namespace MarioRacer
         // LEVELS
         public static string LEVEL_FILE = "Assets/Data/level-{0:000}.txt";
         public static int BASE_LEVELS = 5;
+
+        // SPEED
         public static int MILES = 1;
         public static int SPEED = 8;
         public static int SLOW = 1;
-        public static int MAX_SPEED = 8;
+        public static int MAX_SPEED = 16;
         public static int REVERSE = -2;
 
         // ----------------------------------------------------------------------------------------- 
@@ -112,14 +108,8 @@ namespace MarioRacer
         public static string LIVES_FORMAT = "LIVES: {0}";
         public static string SCORE_FORMAT = "SCORE: {0}";
 
-        // BALL
-        public static string BALL_GROUP = "balls";
-        public static string BALL_IMAGE = "Assets/Images/000.png";
-        public static int BALL_WIDTH = 28;
-        public static int BALL_HEIGHT = 28;
-        public static int BALL_VELOCITY = 6;
-
         // CAR
+        public static int CAR_INDEX = 0;
         public static string P1_CAR_GROUP = "playerOneCar";
         public static string P2_CAR_GROUP = "playerTwoCar";
         
@@ -213,12 +203,16 @@ namespace MarioRacer
         public static int BRICK_POINTS = 50;
 
          //SPEED BOOST
-        public static string BOOST_GROUP = "boost";
+        public static int BOOST_INDEX = 1;
+        public static int DEFAULT_BOOST = 5;
+        public static string P1_BOOST_GROUP = "p1_boost";
+        public static string P2_BOOST_GROUP = "p2_boost";
         public static string BOOST_IMAGE = "Assets/Images/000.png";
         public static int BOOST_WIDTH = 100;
         public static int BOOST_HEIGHT = 100;
 
         // FLAG
+        public static int FLAG_INDEX = 2;
         public static string P1_FLAG_GROUP = "p1_flag";
         public static string P2_FLAG_GROUP = "p2_flag";
         public static string FLAG_IMAGE = "Assets/Images/flag.png";
@@ -228,6 +222,7 @@ namespace MarioRacer
         public static int FLAG_RATE = 4;
 
         // CHECKERED LINE
+        public static int LINE_INDEX = 3;
         public static string P1_LINE_GROUP = "p1_line";
         public static string P2_LINE_GROUP = "p2_line";
         public static string FINISH_IMAGE = "Assets/Images/200.png";

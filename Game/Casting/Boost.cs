@@ -6,13 +6,9 @@ namespace MarioRacer.Game.Casting
         private Body body;
         private Image image;
 
-    public Boost(Body body, Image image, bool debug = false) : base(debug){
+    public Boost(Body body, Image image, bool debug = false) : base(debug, body){
         this.body = body;
         this.image = image;
-    }
-
-    public Body GetBody(){
-        return body;
     }
     public Image GetImage()
         {
