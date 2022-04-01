@@ -71,7 +71,7 @@ namespace MarioRacer
         public static int BASE_LEVELS = 5;
 
         // SPEED
-        public static int MILES = 1;
+        public static int MILES = 4;
         public static int SPEED = 8;
         public static int SLOW = 1;
         public static int MAX_SPEED = 16;
@@ -200,51 +200,6 @@ namespace MarioRacer
         public static double BRICK_DELAY = 0.5;
         public static int BRICK_RATE = 4;
         public static int BRICK_POINTS = 50;
-         
-         //COIN
-        public static string P1_COIN_GROUP = "p1_coins";
-        public static string P2_COIN_GROUP = "p2_coins";
-
-        public static List<string> COIN_IMAGES
-            = new List<string>(){
-                "Assets/Images/300.png",
-                "Assets/Images/301.png",
-                "Assets/Images/302.png",
-                "Assets/Images/303.png",
-
-            };
-            public static int COIN_WIDTH = 85;
-            public static int COIN_HEIGHT = 85;
-            public static double COIN_DELAY = 0.5;
-            public static int COIN_RATE = 4;
-
-        //WORMHOLE
-            public static string P1_WORMHOLE_GROUP = "p1_wormhole";
-            public static string P2_WORMHOLE_GROUP = "p2_wormhole";
-            public static string WORMHOLE_IMAGE = "Assets/Images/311.png";
-            public static int WORMHOLE_WIDTH = 85;
-            public static int WORMHOLE_HEIGHT = 85; 
-        
-        //COMET
-            public static string P1_COMET_GROUP = "p1_comet";
-            public static string P2_COMET_GROUP = "p2_comet";
-            public static string COMET_IMAGE = "Assets/Images/312.png";
-            public static int COMET_WIDTH = 95;
-            public static int COMET_HEIGHT = 95; 
-        
-        //MYSTERY BOX
-            public static string P1_BOX_GROUP = "p1_box";
-            public static string P2_BOX_GROUP = "p2_box";
-            public static string BOX_IMAGE = "Assets/Images/310.png";
-            public static int BOX_WIDTH = 85;
-            public static int BOX_HEIGHT = 85;
-        
-        //BULLET
-            public static string P1_BULLET_GROUP = "p1_bullet";
-            public static string P2_BULLET_GROUP = "p2_bullet";
-            public static string BULLET_IMAGE = "Assets/Images/313.png";
-            public static int BULLET_WIDTH = 50;
-            public static int BULLET_HEIGHT = 50;
 
          //SPEED BOOST
         public static int BOOST_INDEX = 1;
@@ -277,9 +232,61 @@ namespace MarioRacer
         // START LINE
         public static string START_IMAGE = "Assets/Images/201.png";
 
+        //COIN
+        public static int COIN_INDEX = 4;
+        public static string P1_COIN_GROUP = "p1_coins";
+        public static string P2_COIN_GROUP = "p2_coins";
+
+        public static List<string> COIN_IMAGES
+            = new List<string>(){
+                "Assets/Images/300.png",
+                "Assets/Images/301.png",
+                "Assets/Images/302.png",
+                "Assets/Images/303.png",
+
+            };
+        public static int COIN_WIDTH = 85;
+        public static int COIN_HEIGHT = 85;
+        public static double COIN_DELAY = 0.5;
+        public static int COIN_RATE = 4;
+
+        //WORMHOLE
+        public static int WORMHOLE_INDEX = 5;
+        public static string P1_WORMHOLE_GROUP = "p1_wormhole";
+        public static string P2_WORMHOLE_GROUP = "p2_wormhole";
+        public static string WORMHOLE_IMAGE = "Assets/Images/311.png";
+        public static int WORMHOLE_WIDTH = 85;
+        public static int WORMHOLE_HEIGHT = 85; 
+        
+        //COMET
+        public static int COMET_INDEX = 6;
+        public static string P1_COMET_GROUP = "p1_comet";
+        public static string P2_COMET_GROUP = "p2_comet";
+        public static string COMET_IMAGE = "Assets/Images/312.png";
+        public static int COMET_WIDTH = 95;
+        public static int COMET_HEIGHT = 95; 
+        
+        //MYSTERY BOX
+        public static int BOX_INDEX = 7;
+        public static string P1_BOX_GROUP = "p1_box";
+        public static string P2_BOX_GROUP = "p2_box";
+        public static string BOX_IMAGE = "Assets/Images/310.png";
+        public static int BOX_WIDTH = 85;
+        public static int BOX_HEIGHT = 85;
+        
+        //BULLET
+        public static int BULLET_INDEX = 8;
+        public static string P1_BULLET_GROUP = "p1_bullet";
+        public static string P2_BULLET_GROUP = "p2_bullet";
+        public static string BULLET_IMAGE = "Assets/Images/313.png";
+        public static int BULLET_WIDTH = 50;
+        public static int BULLET_HEIGHT = 50;
+
         // BACKGROUND
         public static string BACKGROUND_GROUP = "background";
-        public static int BACKGROUND_WIDTH = 900;
+        public static int P1_BACKGROUND = 0;
+        public static int P2_BACKGROUND = 1;
+        public static int BACKGROUND_WIDTH = CENTER_X;
         public static int BACKGROUND_HEIGHT = SCREEN_HEIGHT;
         public static string BACKGROUND_IMAGE = "Assets/Images/203.png";
 

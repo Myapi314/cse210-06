@@ -48,7 +48,7 @@ namespace MarioRacer.Game.Scripting
 
             if (physicsService.HasCollided(p2_carBody, p2_boostBody))
             {
-                foreach(string group in p1_movingActorGroups)
+                foreach(string group in p2_movingActorGroups)
                 {
                     Actor actor = cast.GetFirstActor(group);
                     Body body = actor.GetBody();

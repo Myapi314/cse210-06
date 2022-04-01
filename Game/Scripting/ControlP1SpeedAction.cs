@@ -8,14 +8,12 @@ namespace MarioRacer.Game.Scripting
     public class ControlP1SpeedAction : Action
     {
         private KeyboardService keyboardService;
-        private PhysicsService physicsService;
         private Point velocity;
         private List<string> movingActorGroups = new List<string>();
 
-        public ControlP1SpeedAction(KeyboardService keyboardService, PhysicsService physicsService, List<string> movingActorGroups)
+        public ControlP1SpeedAction(KeyboardService keyboardService, List<string> movingActorGroups)
         {
             this.keyboardService = keyboardService;
-            this.physicsService =physicsService;
             this.movingActorGroups = movingActorGroups;
         }
 
@@ -43,7 +41,7 @@ namespace MarioRacer.Game.Scripting
                 // {
                 //     velocity = reverse;
                 // }
-                else if (!physicsService.HasCollided(carBody, body))
+                else
                 {
                     velocity = slow;
                 }

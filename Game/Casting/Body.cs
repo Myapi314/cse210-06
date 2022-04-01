@@ -95,5 +95,10 @@ namespace MarioRacer.Game.Casting
             int y = ((position.GetY() + velocity.GetY()) + maxY) % maxY;
             position = new Point(x, y);
         }
+
+        public void MoveOff()
+        {
+            position = position.Add(velocity);
+        }
     }
 }

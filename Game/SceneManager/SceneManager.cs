@@ -17,10 +17,14 @@ namespace MarioRacer.Game.SceneManaging
         public static VideoService VideoService = new RaylibVideoService(Constants.GAME_NAME,
             Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, Constants.BLACK);
         private List<string> p1_cast_groups = new List<string>() {
-            Constants.P1_CAR_GROUP, Constants.P1_BOOST_GROUP, Constants.P1_FLAG_GROUP, Constants.P1_LINE_GROUP
+            Constants.P1_CAR_GROUP, Constants.P1_BOOST_GROUP, Constants.P1_FLAG_GROUP, Constants.P1_LINE_GROUP, 
+            Constants.P1_COIN_GROUP, Constants.P1_WORMHOLE_GROUP, Constants.P1_COMET_GROUP, 
+            Constants.P1_BOX_GROUP, Constants.P1_BULLET_GROUP
         };
         private List<string> p2_cast_groups = new List<string>() {
-            Constants.P2_CAR_GROUP, Constants.P2_BOOST_GROUP, Constants.P2_FLAG_GROUP, Constants.P2_LINE_GROUP
+            Constants.P2_CAR_GROUP, Constants.P2_BOOST_GROUP, Constants.P2_FLAG_GROUP, Constants.P2_LINE_GROUP,
+            Constants.P2_COIN_GROUP, Constants.P2_WORMHOLE_GROUP, Constants.P2_COMET_GROUP, 
+            Constants.P2_BOX_GROUP, Constants.P2_BULLET_GROUP
         };
 
         public SceneManager()
@@ -52,10 +56,12 @@ namespace MarioRacer.Game.SceneManaging
             else if (scene == Constants.IN_PLAY)
             {
                 List<string> P1inPlayActors = new List<string>() {
-                    Constants.P1_FLAG_GROUP, Constants.P1_LINE_GROUP, Constants.P1_BOOST_GROUP
+                    Constants.P1_FLAG_GROUP, Constants.P1_LINE_GROUP, Constants.P1_BOOST_GROUP, 
+                    Constants.P1_COIN_GROUP
                 };
                 List<string> P2inPlayActors = new List<string>() {
-                    Constants.P2_FLAG_GROUP, Constants.P2_LINE_GROUP, Constants.P2_BOOST_GROUP
+                    Constants.P2_FLAG_GROUP, Constants.P2_LINE_GROUP, Constants.P2_BOOST_GROUP,
+                    Constants.P2_COIN_GROUP
                 };
                 script.ClearAllActions();
                 p1_inPlay_screen.PrepareInPlayScene(cast, script, 
@@ -64,7 +70,7 @@ namespace MarioRacer.Game.SceneManaging
                     VideoService, KeyboardService);
 
                 script.AddAction(Constants.INPUT, new ControlCarAction(KeyboardService));
-                script.AddAction(Constants.INPUT, new ControlP1SpeedAction(KeyboardService, PhysicsService, P1inPlayActors));
+                script.AddAction(Constants.INPUT, new ControlP1SpeedAction(KeyboardService, P1inPlayActors));
                 script.AddAction(Constants.INPUT, new ControlP2SpeedAction(KeyboardService, P2inPlayActors));
 
                 script.AddAction(Constants.UPDATE, new MoveP1CarAction());
@@ -73,6 +79,7 @@ namespace MarioRacer.Game.SceneManaging
                 script.AddAction(Constants.UPDATE, new CollideBoostAction(PhysicsService, AudioService, P1inPlayActors, P2inPlayActors));
                 script.AddAction(Constants.UPDATE, new MoveFlagAction());
                 script.AddAction(Constants.UPDATE, new MoveBoostAction());
+                script.AddAction(Constants.UPDATE, new MoveCoinAction());
                 script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P1_LINE_GROUP));
                 script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P2_LINE_GROUP));
 
@@ -87,6 +94,8 @@ namespace MarioRacer.Game.SceneManaging
                 script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P1_LINE_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService, Constants.P2_FLAG_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawBoostAction(VideoService));
+                script.AddAction(Constants.OUTPUT, new DrawCoinAction(VideoService, Constants.P1_COIN_GROUP));
+                script.AddAction(Constants.OUTPUT, new DrawCoinAction(VideoService, Constants.P2_COIN_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P2_LINE_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCarAction(VideoService));
                 script.AddAction(Constants.OUTPUT, new DrawDialogAction(VideoService));
