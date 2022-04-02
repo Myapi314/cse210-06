@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Collections.Generic;
 using MarioRacer.Game.Casting;
 using MarioRacer.Game.Services;
 
@@ -19,6 +21,12 @@ namespace MarioRacer.Game.Scripting
         {
             if (keyboardService.IsKeyPressed(Constants.ENTER))
             {
+                List<Actor> actors = cast.GetActors(Constants.STATS_GROUP);
+                foreach(Actor actor in actors)
+                {
+                    Stats stat = (Stats)actor;
+                    stat.StartTime();
+                }
                 callback.OnNext(nextScene);
             }
         }

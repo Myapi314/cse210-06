@@ -17,7 +17,7 @@ namespace MarioRacer.Game.Scripting
             if (bricks.Count == 0)
             {
                 Stats stats = (Stats)cast.GetFirstActor(Constants.STATS_GROUP);
-                stats.AddLevel();
+                // stats.AddLevel();
                 callback.OnNext(Constants.NEW_GAME);//used to be NEXT_LEVEL
             }
         }

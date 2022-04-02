@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using MarioRacer.Game.Casting;
 using MarioRacer.Game.Services;
 using System;
@@ -37,6 +38,18 @@ namespace MarioRacer.Game.Scripting
             
             if(physicsService.HasCollided(body, car_body))
             {
+                List<Actor> actors = cast.GetActors(Constants.STATS_GROUP);
+
+                if (lineGroup == Constants.P1_LINE_GROUP)
+                {
+                    Stats stat = (Stats)actors[Constants.P1_INDEX];
+                    stat.StopTime();
+                }
+                else if(lineGroup == Constants.P2_LINE_GROUP)
+                {
+                    Stats stat = (Stats)actors[Constants.P2_INDEX];
+                    stat.StopTime();
+                }
                 callback.OnNext(Constants.GAME_OVER);
             }
         }

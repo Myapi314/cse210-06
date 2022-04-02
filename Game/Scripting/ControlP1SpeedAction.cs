@@ -28,6 +28,10 @@ namespace MarioRacer.Game.Scripting
             Car car = (Car)cast.GetFirstActor(Constants.P1_CAR_GROUP);
             Body carBody = car.GetBody();
 
+            List<Actor> stats = cast.GetActors(Constants.STATS_GROUP);
+            Stats p1_stat = (Stats)stats[Constants.P1_INDEX];
+            int coins = p1_stat.GetCoinNum();
+
             foreach(string group in movingActorGroups)
             {
                 Actor actor = cast.GetFirstActor(group);
@@ -35,7 +39,6 @@ namespace MarioRacer.Game.Scripting
                 if (keyboardService.IsKeyDown(Constants.P1_UP))
                 {
                     velocity = speed;
-
                 }
                 // else if (keyboardService.IsKeyDown(Constants.DOWN))
                 // {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using MarioRacer.Game.Casting;
 namespace MarioRacer.Game.Scripting
 {
-    public class MoveBoostAction : Action
+    public class MoveHoleAction : Action
     {
-        public MoveBoostAction()
+        public MoveHoleAction()
         {
         }
 
@@ -28,32 +28,33 @@ namespace MarioRacer.Game.Scripting
             int p1_mileMarker = p1_flag.GetMileMarker();
             int p2_mileMarker = p2_flag.GetMileMarker();
 
-            // Boost
-            Boost p1_boost = (Boost)cast.GetFirstActor(Constants.P1_BOOST_GROUP);
-            Boost p2_boost = (Boost)cast.GetFirstActor(Constants.P2_BOOST_GROUP);
-            Body p1_body = p1_boost.GetBody();
-            Body p2_body = p2_boost.GetBody();
+            // Wormhole
+            Wormhole p1_hole = (Wormhole)cast.GetFirstActor(Constants.P1_WORMHOLE_GROUP);
+            Wormhole p2_hole = (Wormhole)cast.GetFirstActor(Constants.P2_WORMHOLE_GROUP);
+            Body p1_body = p1_hole.GetBody();
+            Body p2_body = p2_hole.GetBody();
 
             Point p1_position = p1_body.GetPosition();
             Point p1_velocity = p1_body.GetVelocity();
             Point p2_position = p2_body.GetPosition();
             Point p2_velocity = p2_body.GetVelocity();
             
-            int p1_boostY = p1_position.GetY();
-            int p2_boostY = p2_position.GetY();
+            int p1_y = p1_position.GetY();
+            int p2_y = p2_position.GetY();
 
             // Move Boost
-            if(p1_mileMarker % 2 == 0 && p1_boostY > Constants.BACKGROUND_HEIGHT)
+            int place = random.Next(1, 3);
+            if(p1_mileMarker % place == 0 && p1_y > Constants.BACKGROUND_HEIGHT)
             {
-                int p1_NextX = random.Next(p1_roadLeft, p1_roadRight);
-                int y1 = 0;
-                p1_position = new Point(p1_NextX, y1);
+                int x = random.Next(p1_roadLeft, p1_roadRight);
+                int y = 0;
+                p1_position = new Point(x, y);
             }
-            if(p2_mileMarker % 2 == 0 && p2_boostY > Constants.BACKGROUND_HEIGHT)
+            if(p2_mileMarker % place == 0 && p2_y > Constants.BACKGROUND_HEIGHT)
             {
-                int p2_NextX = random.Next(p2_roadLeft, p2_roadRight);
-                int y2 = 0;
-                p2_position = new Point(p2_NextX, y2);
+                int x = random.Next(p2_roadLeft, p2_roadRight);
+                int y = 0;
+                p2_position = new Point(x, y);
             }
             p1_position = p1_position.Add(p1_velocity);
             p2_position = p2_position.Add(p2_velocity);

@@ -34,6 +34,7 @@ namespace MarioRacer.Game.SceneManaging
             AddFlag(cast);
             AddBoost(cast);
             AddCoin(cast);
+            AddWormhole(cast);
             // AddInputActions(script, keyboardService);
             // AddOutputActions(script, videoService);
             // AddUpdateActions(script);
@@ -60,7 +61,7 @@ namespace MarioRacer.Game.SceneManaging
             // cast.ClearActors(boostGroup);
 
             int x = random.Next(roadleft, roadRight);
-            int y = 50;
+            int y = Constants.BACKGROUND_HEIGHT + Constants.BOOST_HEIGHT;
             
             Point position = new Point(x, y);
             Point size = new Point(Constants.BOOST_WIDTH, Constants.BOOST_HEIGHT);
@@ -77,7 +78,7 @@ namespace MarioRacer.Game.SceneManaging
             string coinGroup = groups[Constants.COIN_INDEX];
 
             int x = random.Next(roadleft, roadRight);
-            int y = 0;
+            int y = 0 - Constants.COIN_HEIGHT;
             
             Point position = new Point(x, y);
             Point size = new Point(Constants.COIN_WIDTH, Constants.COIN_HEIGHT);
@@ -90,6 +91,23 @@ namespace MarioRacer.Game.SceneManaging
             cast.AddActor(coinGroup, coin);
 
         }
+        private void AddWormhole(Cast cast)
+        {
+            string holeGroup = groups[Constants.WORMHOLE_INDEX];
+
+            int x = random.Next(roadleft, roadRight);
+            int y = 0 - 8 * Constants.WORMHOLE_HEIGHT;
+            
+            Point position = new Point(x, y);
+            Point size = new Point(Constants.WORMHOLE_WIDTH, Constants.WORMHOLE_HEIGHT);
+            
+            Image image = new Image(Constants.WORMHOLE_IMAGE);
+            Body body = new Body(position, size, velocity);
+
+            Wormhole hole = new Wormhole(body, image, false);
+
+            cast.AddActor(holeGroup, hole);
+        }
         private void AddInputActions(Script script, KeyboardService keyboardService)
         {
             script.AddAction(Constants.INPUT, new ControlCarAction(keyboardService));
@@ -100,7 +118,8 @@ namespace MarioRacer.Game.SceneManaging
         {
             script.AddAction(Constants.OUTPUT, new StartDrawingAction(videoService));
             script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(videoService));
-            script.AddAction(Constants.OUTPUT, new DrawHudAction(videoService));
+            script.AddAction(Constants.OUTPUT, new DrawHudAction(videoService, Constants.P1_INDEX));
+            script.AddAction(Constants.OUTPUT, new DrawHudAction(videoService, Constants.P2_INDEX));
             script.AddAction(Constants.OUTPUT, new DrawFlagAction(videoService, groups[Constants.FLAG_INDEX]));
             script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(videoService, groups[Constants.LINE_INDEX]));
             script.AddAction(Constants.OUTPUT, new DrawCarAction(videoService));

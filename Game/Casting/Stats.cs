@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System;
+using System.Diagnostics;
+
 namespace MarioRacer.Game.Casting
 {
     /// <summary>
@@ -5,85 +9,107 @@ namespace MarioRacer.Game.Casting
     /// </summary>
     public class Stats : Actor
     {
-        private int level;
-        private int lives;
-        private int score;
+        private List<string> items = Constants.ITEMS;
+        private string item;
+        private int coins;
+        private Stopwatch stopwatch;
         private static Point point = new Point(0,0);
         private static Body body = new Body(point, point, point);
 
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
-        public Stats(int level = 1, int lives = 3, int score = 0, 
+        public Stats(Stopwatch stopwatch, int coins = 0,
                 bool debug = false) : base(debug, body)
         {
-            this.level = level;
-            this.lives = lives;
-            this.score = score;
+            this.item = items[Constants.NO_ITEM_INDEX];
+            this.coins = coins;
+            this.stopwatch = stopwatch;
         }
 
         /// <summary>
-        /// Adds one level.
+        /// Adds one coin.
         /// </summary>
-        public void AddLevel()
+        public void IncCoins()
         {
-            level++;
+            coins++;
         }
 
         /// <summary>
         /// Adds an extra life.
         /// </summary>
-        public void AddLife()
+        public void StartTime()
         {
-            lives++;
+            stopwatch.Start();
+        }
+
+        public void StopTime()
+        {
+            stopwatch.Stop();
+        }
+
+        public void ResetTime()
+        {
+            stopwatch.Reset();
         }
 
         /// <summary>
         /// Adds the given points to the score.
         /// </summary>
         /// <param name="points">The given points.</param>
-        public void AddPoints(int points)
+        public void NewItem()
         {
-            score += points;
+            Random random = new Random();
+            int item_index = random.Next(items.Count);
+            item = items[item_index];
         }
 
         /// <summary>
         /// Gets the level.
         /// </summary>
         /// <returns>The level.</returns>
-        public int GetLevel()
+        public string GetCoins()
         {
-            return level;
+            string str_coin = coins.ToString();
+            return str_coin;
+        }
+
+        public int GetCoinNum()
+        {
+            return coins;
         }
 
         /// <summary>
         /// Gets the lives.
         /// </summary>
         /// <returns>The lives.</returns>
-        public int GetLives()
+        public string GetStopwatch()
         {
-            return lives;
+            TimeSpan timeSpan = stopwatch.Elapsed;
+            string time = timeSpan.ToString();
+            return time;
         }
 
         /// <summary>
         /// Gets the score.
         /// </summary>
         /// <returns>The score.</returns>
-        public int GetScore()
+        public string GetItem()
         {
-            return score;
+            return item;
         }
 
         /// <summary>
         /// Removes a life.
         /// </summary>
-        public void RemoveLife()
+        public void ResetCoins()
         {
-            lives--;
-            if (lives <= 0)
-            {
-                lives = 0;
-            }
+            coins = 0;
+        }
+
+        public void ResetItem()
+        {
+            item = Constants.ITEMS[Constants.NO_ITEM_INDEX];
         }
         
     }

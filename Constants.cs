@@ -67,12 +67,13 @@ namespace MarioRacer
         public static string GAME_OVER = "game_over";
 
         // LEVELS
-        public static string LEVEL_FILE = "Assets/Data/level-{0:000}.txt";
-        public static int BASE_LEVELS = 5;
+        public static int P1_INDEX = 0;
+        public static int P2_INDEX = 1;
 
         // SPEED
         public static int MILES = 4;
         public static int SPEED = 8;
+        public static int COIN_SPEED = 10;
         public static int SLOW = 1;
         public static int MAX_SPEED = 16;
         public static int REVERSE = -2;
@@ -98,15 +99,22 @@ namespace MarioRacer
         public static string STATS_GROUP = "stats";
         public static int DEFAULT_LIVES = 3;
         public static int MAXIMUM_LIVES = 5;
+        public static List<string> ITEMS = new List<string>(){
+            "none", "bullet_item", "boost_item", "slow_item" 
+        };
+        public static int NO_ITEM_INDEX = 0;
+        public static int BULL_ITEM_INDEX = 1;
+        public static int SPEED_ITEM_INDEX = 2;
+        public static int SLOW_ITEM_INDEX = 3;
 
         // HUD
         public static int HUD_MARGIN = 15;
-        public static string LEVEL_GROUP = "level";
-        public static string LIVES_GROUP = "lives";
-        public static string SCORE_GROUP = "score";
-        public static string LEVEL_FORMAT = "LEVEL: {0}";
-        public static string LIVES_FORMAT = "LIVES: {0}";
-        public static string SCORE_FORMAT = "SCORE: {0}";
+        public static string ITEMS_GROUP = "items";
+        public static string COINS_GROUP = "coin_cnt";
+        public static string TIME_GROUP = "time";
+        public static string ITEMS_FORMAT = "ITEM: {0}";
+        public static string COINS_FORMAT = "COINS: {0}";
+        public static string TIME_FORMAT = "TIME: {0}";
 
         // CAR
         public static int CAR_INDEX = 0;
@@ -255,8 +263,8 @@ namespace MarioRacer
         public static string P1_WORMHOLE_GROUP = "p1_wormhole";
         public static string P2_WORMHOLE_GROUP = "p2_wormhole";
         public static string WORMHOLE_IMAGE = "Assets/Images/311.png";
-        public static int WORMHOLE_WIDTH = 85;
-        public static int WORMHOLE_HEIGHT = 85; 
+        public static int WORMHOLE_WIDTH = 75;
+        public static int WORMHOLE_HEIGHT = 75; 
         
         //COMET
         public static int COMET_INDEX = 6;
@@ -284,8 +292,6 @@ namespace MarioRacer
 
         // BACKGROUND
         public static string BACKGROUND_GROUP = "background";
-        public static int P1_BACKGROUND = 0;
-        public static int P2_BACKGROUND = 1;
         public static int BACKGROUND_WIDTH = CENTER_X;
         public static int BACKGROUND_HEIGHT = SCREEN_HEIGHT;
         public static string BACKGROUND_IMAGE = "Assets/Images/203.png";
