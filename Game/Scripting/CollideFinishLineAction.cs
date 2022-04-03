@@ -45,7 +45,7 @@ namespace MarioRacer.Game.Scripting
                     Stats stat = (Stats)actors[Constants.P1_INDEX];
                     stat.StopTime();
                 }
-                else if(lineGroup == Constants.P2_LINE_GROUP)
+                if(lineGroup == Constants.P2_LINE_GROUP)
                 {
                     Stats stat = (Stats)actors[Constants.P2_INDEX];
                     stat.StopTime();

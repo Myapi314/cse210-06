@@ -37,18 +37,25 @@ namespace MarioRacer.Game.Scripting
             int p2_coinY = p2_coinPosition.GetY();
 
             // Move Coin
-            int coin_var = random.Next(0, 2);
+            int coin_var = random.Next(0, 60);
             if(coin_var == 1 && p1_coinY > Constants.BACKGROUND_HEIGHT)
             {
                 int x1 = random.Next(p1_roadLeft, p1_roadRight);
                 int y1 = 0;
                 p1_coinPosition = new Point(x1, y1);
             }
+            else{
+                p1_coin.StopMoving();
+            }
             if(coin_var == 1 && p2_coinY > Constants.BACKGROUND_HEIGHT)
             {
                 int x2 = random.Next(p2_roadLeft, p2_roadRight);
                 int y2 = 0;
                 p2_coinPosition = new Point(x2, y2);
+            }
+            else
+            {
+                p1_coin.StopMoving();
             }
             p1_coinPosition = p1_coinPosition.Add(p1_coinVelocity);
             p2_coinPosition = p2_coinPosition.Add(p2_coinVelocity);

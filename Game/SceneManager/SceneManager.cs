@@ -204,6 +204,8 @@ namespace MarioRacer.Game.SceneManaging
             script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P1_LINE_GROUP));
             script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P2_LINE_GROUP));
 
+            script.AddAction(Constants.UPDATE, new CollideFinishLineAction(PhysicsService, AudioService, Constants.P1_LINE_GROUP, Constants.P1_CAR_GROUP));
+            script.AddAction(Constants.UPDATE, new CollideFinishLineAction(PhysicsService, AudioService, Constants.P2_LINE_GROUP, Constants.P2_CAR_GROUP));
             script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P1_LINE_GROUP));
             script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P2_LINE_GROUP));
 

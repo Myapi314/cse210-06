@@ -18,10 +18,11 @@ namespace MarioRacer.Game.Casting{
             return animation;
         }
 
-         /// <summary>
-        /// Gets the body.
-        /// </summary>
-        /// <returns>The body.</returns>
+        public void StopMoving()
+        {
+            Point velocity = new Point(0, 0);
+            body.SetVelocity(velocity);
+        }
     }
 
 }
