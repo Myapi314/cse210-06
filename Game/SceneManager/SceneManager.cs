@@ -62,10 +62,55 @@ namespace MarioRacer.Game.SceneManaging
 
                 p1_start_screen.PrepareNewScene(cast);
                 p2_start_screen.PrepareNewScene(cast);
-                PrepareNewGame(cast, script);
+                AddDialog(cast, Constants.ENTER_TO_START);
+                List<Actor> stats = cast.GetActors(Constants.STATS_GROUP);
+                foreach (Actor actor in stats)
+                {
+                    Stats stat = (Stats)actor;
+                    stat.ResetTime();
+                    stat.ResetCoins();
+                    stat.ResetItem();
+                }
+
+                script.ClearAllActions();
+
+                ChangeSceneAction a = new ChangeSceneAction(KeyboardService, AudioService, Constants.READY);
+                script.AddAction(Constants.INPUT, a);
+                script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
+                script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P1_LINE_GROUP));
+                script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P2_LINE_GROUP));
+                AddInitActions(script);
+                AddLoadActions(script);
+                AddOutputActions(script);
+                AddUnloadActions(script);
+                AddReleaseActions(script);
+            }
+            else if (scene == Constants.READY)
+            {
+                AddDialog(cast, Constants.READY);
+                TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.SET, 0.5, DateTime.Now);
+                script.AddAction(Constants.INPUT, ta); 
+            }
+            else if (scene == Constants.SET)
+            {
+                AddDialog(cast, Constants.SET);
+                TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.GO, 0.5, DateTime.Now);
+                script.AddAction(Constants.INPUT, ta); 
+            }
+            else if (scene == Constants.GO)
+            {
+                AddDialog(cast, Constants.GO);
+                TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.IN_PLAY, 0.5, DateTime.Now);
+                script.AddAction(Constants.INPUT, ta);
             }
             else if (scene == Constants.IN_PLAY)
             {
+                List<Actor> actors = cast.GetActors(Constants.STATS_GROUP);
+                foreach(Actor actor in actors)
+                {
+                    Stats stat = (Stats)actor;
+                    stat.StartTime();
+                }
                 script.ClearAllActions();
                 p1_inPlay_screen.PrepareInPlayScene(cast, script, 
                     VideoService, KeyboardService);
@@ -130,6 +175,8 @@ namespace MarioRacer.Game.SceneManaging
             }
             else if (scene == Constants.GAME_OVER)
             {
+                script.AddAction(Constants.INPUT, new ControlP1SpeedAction(KeyboardService, new List<string>(){Constants.P1_LINE_GROUP}));
+                script.AddAction(Constants.INPUT, new ControlP2SpeedAction(KeyboardService, new List<string>(){Constants.P2_LINE_GROUP}));
                 foreach(string castGroup in P1inPlayActors)
                 {
                     if(castGroup != Constants.P1_LINE_GROUP)
@@ -146,34 +193,6 @@ namespace MarioRacer.Game.SceneManaging
                 }
                 PrepareGameOver(cast, script);
             }
-        }
-
-        private void PrepareNewGame(Cast cast, Script script)
-        {
-            AddDialog(cast, Constants.ENTER_TO_START);
-            List<Actor> stats = cast.GetActors(Constants.STATS_GROUP);
-            foreach (Actor actor in stats)
-            {
-                Stats stat = (Stats)actor;
-                stat.ResetTime();
-                stat.ResetCoins();
-                stat.ResetItem();
-            }
-
-            script.ClearAllActions();
-
-            ChangeSceneAction a = new ChangeSceneAction(KeyboardService, Constants.IN_PLAY);
-            script.AddAction(Constants.INPUT, a);
-
-
-            script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
-            script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P1_LINE_GROUP));
-            script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P2_LINE_GROUP));
-            AddInitActions(script);
-            AddLoadActions(script);
-            AddOutputActions(script);
-            AddUnloadActions(script);
-            AddReleaseActions(script);
         }
         private void PrepareTryAgain(Cast cast, Script script)
         {

@@ -35,6 +35,7 @@ namespace MarioRacer
         public static string BOUNCE_SOUND = "Assets/Sounds/boing.wav";
         public static string WELCOME_SOUND = "Assets/Sounds/start.wav";
         public static string OVER_SOUND = "Assets/Sounds/over.wav";
+        public static string START_SOUND = "Assets/Sounds/startup.mp3";
 
         // TEXT
         public static int ALIGN_LEFT = 0;
