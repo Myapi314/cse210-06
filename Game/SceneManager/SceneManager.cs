@@ -29,11 +29,11 @@ namespace MarioRacer.Game.SceneManaging
         };
         private List<string> P1inPlayActors = new List<string>() {
             Constants.P1_FLAG_GROUP, Constants.P1_LINE_GROUP, Constants.P1_BOOST_GROUP, 
-            Constants.P1_COIN_GROUP, Constants.P1_WORMHOLE_GROUP
+            Constants.P1_COIN_GROUP, Constants.P1_WORMHOLE_GROUP, Constants.P1_BOX_GROUP
         };
         private List<string> P2inPlayActors = new List<string>() {
             Constants.P2_FLAG_GROUP, Constants.P2_LINE_GROUP, Constants.P2_BOOST_GROUP,
-            Constants.P2_COIN_GROUP, Constants.P2_WORMHOLE_GROUP
+            Constants.P2_COIN_GROUP, Constants.P2_WORMHOLE_GROUP, Constants.P2_BOX_GROUP
         };
 
         public SceneManager()
@@ -120,15 +120,18 @@ namespace MarioRacer.Game.SceneManaging
                 script.AddAction(Constants.INPUT, new ControlCarAction(KeyboardService));
                 script.AddAction(Constants.INPUT, new ControlP1SpeedAction(KeyboardService, P1inPlayActors));
                 script.AddAction(Constants.INPUT, new ControlP2SpeedAction(KeyboardService, P2inPlayActors));
+                script.AddAction(Constants.INPUT, new UseItemAction(KeyboardService, P1inPlayActors, P2inPlayActors));
 
                 // script.AddAction(Constants.UPDATE, new CollideSpecialItemsAction(PhysicsService, P1inPlayActors, P2inPlayActors));
                 script.AddAction(Constants.UPDATE, new CollideBoostAction(PhysicsService, AudioService, P1inPlayActors, P2inPlayActors));
                 script.AddAction(Constants.UPDATE, new CollideHoleAction(PhysicsService, AudioService, P1inPlayActors, P2inPlayActors));
                 script.AddAction(Constants.UPDATE, new CollideCoinAction(PhysicsService, AudioService, P1inPlayActors, P2inPlayActors));
+                script.AddAction(Constants.UPDATE, new CollideBoxAction(PhysicsService, AudioService));
                 script.AddAction(Constants.UPDATE, new MoveP1CarAction());
                 script.AddAction(Constants.UPDATE, new MoveP2CarAction());
                 script.AddAction(Constants.UPDATE, new MoveFlagAction());
                 script.AddAction(Constants.UPDATE, new MoveBoostAction());
+                script.AddAction(Constants.UPDATE, new MoveBoxAction());
                 script.AddAction(Constants.UPDATE, new MoveCoinAction());
                 script.AddAction(Constants.UPDATE, new MoveHoleAction());
                 script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P1_LINE_GROUP));
@@ -148,6 +151,8 @@ namespace MarioRacer.Game.SceneManaging
                 script.AddAction(Constants.OUTPUT, new DrawBoostAction(VideoService));
                 script.AddAction(Constants.OUTPUT, new DrawWormholeAction(VideoService, Constants.P1_WORMHOLE_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawWormholeAction(VideoService, Constants.P2_WORMHOLE_GROUP));
+                script.AddAction(Constants.OUTPUT, new DrawBoxAction(VideoService, Constants.P1_BOX_GROUP));
+                script.AddAction(Constants.OUTPUT, new DrawBoxAction(VideoService, Constants.P2_BOX_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCoinAction(VideoService, Constants.P1_COIN_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCoinAction(VideoService, Constants.P2_COIN_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P2_LINE_GROUP));
@@ -175,8 +180,6 @@ namespace MarioRacer.Game.SceneManaging
             }
             else if (scene == Constants.GAME_OVER)
             {
-                script.AddAction(Constants.INPUT, new ControlP1SpeedAction(KeyboardService, new List<string>(){Constants.P1_LINE_GROUP}));
-                script.AddAction(Constants.INPUT, new ControlP2SpeedAction(KeyboardService, new List<string>(){Constants.P2_LINE_GROUP}));
                 foreach(string castGroup in P1inPlayActors)
                 {
                     if(castGroup != Constants.P1_LINE_GROUP)
@@ -192,6 +195,8 @@ namespace MarioRacer.Game.SceneManaging
                     }
                 }
                 PrepareGameOver(cast, script);
+                script.AddAction(Constants.INPUT, new ControlP1SpeedAction(KeyboardService, new List<string>(){Constants.P1_LINE_GROUP}));
+                script.AddAction(Constants.INPUT, new ControlP2SpeedAction(KeyboardService, new List<string>(){Constants.P2_LINE_GROUP}));
             }
         }
         private void PrepareTryAgain(Cast cast, Script script)

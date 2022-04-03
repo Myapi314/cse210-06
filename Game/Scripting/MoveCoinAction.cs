@@ -22,6 +22,12 @@ namespace MarioRacer.Game.Scripting
             int p2_roadLeft = p2_background.GetRoadLeft();
             int p2_roadRight = p2_background.GetRoadRight();
 
+            // Flag
+            Flag p1_flag = (Flag)cast.GetFirstActor(Constants.P1_FLAG_GROUP);
+            Flag p2_flag = (Flag)cast.GetFirstActor(Constants.P2_FLAG_GROUP);
+            int p1_miles = p1_flag.GetMileMarker();
+            int p2_miles = p2_flag.GetMileMarker();
+
             // Coin
             Coin p1_coin = (Coin)cast.GetFirstActor(Constants.P1_COIN_GROUP);
             Coin p2_coin = (Coin)cast.GetFirstActor(Constants.P2_COIN_GROUP);
@@ -37,8 +43,7 @@ namespace MarioRacer.Game.Scripting
             int p2_coinY = p2_coinPosition.GetY();
 
             // Move Coin
-            int coin_var = random.Next(0, 60);
-            if(coin_var == 1 && p1_coinY > Constants.BACKGROUND_HEIGHT)
+            if(p1_miles % 6 == 0 && p1_coinY > Constants.BACKGROUND_HEIGHT)
             {
                 int x1 = random.Next(p1_roadLeft, p1_roadRight);
                 int y1 = 0;
@@ -47,7 +52,7 @@ namespace MarioRacer.Game.Scripting
             else{
                 p1_coin.StopMoving();
             }
-            if(coin_var == 1 && p2_coinY > Constants.BACKGROUND_HEIGHT)
+            if(p2_miles % 6 == 0 && p2_coinY > Constants.BACKGROUND_HEIGHT)
             {
                 int x2 = random.Next(p2_roadLeft, p2_roadRight);
                 int y2 = 0;

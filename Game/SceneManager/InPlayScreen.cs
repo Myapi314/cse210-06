@@ -35,6 +35,7 @@ namespace MarioRacer.Game.SceneManaging
             AddBoost(cast);
             AddCoin(cast);
             AddWormhole(cast);
+            AddBox(cast);
             // AddInputActions(script, keyboardService);
             // AddOutputActions(script, videoService);
             // AddUpdateActions(script);
@@ -78,7 +79,7 @@ namespace MarioRacer.Game.SceneManaging
             string coinGroup = groups[Constants.COIN_INDEX];
 
             int x = random.Next(roadleft, roadRight);
-            int y = 0 - Constants.COIN_HEIGHT;
+            int y = 0 - 2 * Constants.COIN_HEIGHT;
             
             Point position = new Point(x, y);
             Point size = new Point(Constants.COIN_WIDTH, Constants.COIN_HEIGHT);
@@ -107,6 +108,23 @@ namespace MarioRacer.Game.SceneManaging
             Wormhole hole = new Wormhole(body, image, false);
 
             cast.AddActor(holeGroup, hole);
+        }
+        private void AddBox(Cast cast)
+        {
+            string boxGroup = groups[Constants.BOX_INDEX];
+
+            int x = random.Next(roadleft, roadRight);
+            int y = 0 - 6 * Constants.BOX_HEIGHT;
+            
+            Point position = new Point(x, y);
+            Point size = new Point(Constants.BOX_WIDTH, Constants.BOX_HEIGHT);
+            
+            Image image = new Image(Constants.BOX_IMAGE);
+            Body body = new Body(position, size, velocity);
+
+            MysteryBox box = new MysteryBox(body, image, false);
+
+            cast.AddActor(boxGroup, box);
         }
         private void AddInputActions(Script script, KeyboardService keyboardService)
         {

@@ -23,13 +23,13 @@ namespace MarioRacer.Game.Scripting
             Point slow = new Point(0, Constants.SLOW);
             Point speed = new Point(0, Constants.SPEED);
             Point maxSpeed = new Point(0, Constants.MAX_SPEED);
-            Point reverse = new Point(0, Constants.REVERSE);
 
             Car car = (Car)cast.GetFirstActor(Constants.P1_CAR_GROUP);
             Body carBody = car.GetBody();
 
             List<Actor> stats = cast.GetActors(Constants.STATS_GROUP);
             Stats p1_stat = (Stats)stats[Constants.P1_INDEX];
+            string item = p1_stat.GetItem();
             int coins = p1_stat.GetCoinNum();
 
             foreach(string group in movingActorGroups)
@@ -40,10 +40,6 @@ namespace MarioRacer.Game.Scripting
                 {
                     velocity = speed;
                 }
-                // else if (keyboardService.IsKeyDown(Constants.DOWN))
-                // {
-                //     velocity = reverse;
-                // }
                 else
                 {
                     velocity = slow;

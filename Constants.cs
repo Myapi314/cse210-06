@@ -52,11 +52,12 @@ namespace MarioRacer
         public static string P2_LEFT = "left";
         public static string P2_RIGHT = "right";
         public static string P2_UP = "up";
-        public static string DOWN = "down";
+        public static string P2_THROW = "space";
         public static string SPACE = "space";
         public static string ENTER = "enter";
         public static string PAUSE = "p";
         public static string P1_UP = "w";
+        public static string P1_THROW = "e";
         public static string P1_LEFT = "a";
         public static string P1_RIGHT = "d";
 
@@ -72,7 +73,7 @@ namespace MarioRacer
         public static int P2_INDEX = 1;
 
         // SPEED
-        public static int MILES = 4;
+        public static int MILES = 10;
         public static int SPEED = 8;
         public static int COIN_SPEED = 10;
         public static int SLOW = 1;
@@ -101,8 +102,9 @@ namespace MarioRacer
         public static int DEFAULT_LIVES = 3;
         public static int MAXIMUM_LIVES = 5;
         public static List<string> ITEMS = new List<string>(){
-            "none", "bullet_item", "boost_item", "slow_item" 
+            "none", "bullet", "boost" , "slow"
         };
+
         public static int NO_ITEM_INDEX = 0;
         public static int BULL_ITEM_INDEX = 1;
         public static int SPEED_ITEM_INDEX = 2;

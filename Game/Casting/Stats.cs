@@ -61,6 +61,10 @@ namespace MarioRacer.Game.Casting
         {
             Random random = new Random();
             int item_index = random.Next(items.Count);
+            while (item_index == 0)
+            {
+                item_index = random.Next(items.Count);
+            }
             item = items[item_index];
         }
 
@@ -87,6 +91,12 @@ namespace MarioRacer.Game.Casting
         {
             TimeSpan timeSpan = stopwatch.Elapsed;
             string time = timeSpan.ToString();
+            return time;
+        }
+
+        public TimeSpan GetTime()
+        {
+            TimeSpan time = stopwatch.Elapsed;
             return time;
         }
 
