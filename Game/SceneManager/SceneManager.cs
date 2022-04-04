@@ -89,6 +89,8 @@ namespace MarioRacer.Game.SceneManaging
             }
             else if (scene == Constants.READY)
             {
+                Sound sound = new Sound(Constants.START_SOUND);
+                AudioService.PlaySound(sound);
                 AddDialog(cast, Constants.READY);
                 TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.SET, 0.5, DateTime.Now);
                 script.AddAction(Constants.INPUT, ta); 
