@@ -18,8 +18,13 @@ namespace MarioRacer.Game.SceneManaging
         private List<string> carImages = new List<string>();
         private string carGroup;
         private string lineGroup;
+        private string asteroidGroup;
         private Stopwatch stopwatch;
-        public StartScreen(int x, int y, int center_x, string carGroup, List<string> carImages, string lineGroup, Stopwatch stopwatch)
+        private Random random = new Random();
+        private int roadleft;
+        private int roadRight;
+        public StartScreen(int x, int y, int center_x, string carGroup, List<string> carImages, 
+            string lineGroup, string asteroidGroup, Stopwatch stopwatch)
         {
             this.start_x = x;
             this.start_y = y;
@@ -27,7 +32,11 @@ namespace MarioRacer.Game.SceneManaging
             this.carGroup = carGroup;
             this.carImages = carImages;
             this.lineGroup = lineGroup;
+            this.asteroidGroup = asteroidGroup;
             this.stopwatch = stopwatch;
+
+            roadleft = start_x + Constants.ROAD_LEFT;
+            roadRight = (start_x + Constants.BACKGROUND_WIDTH) - Constants.ROAD_RIGHT;
         }
 
         public void PrepareNewScene(Cast cast)
@@ -35,6 +44,7 @@ namespace MarioRacer.Game.SceneManaging
             AddBackground(cast);
             AddCar(cast, carGroup, carImages);
             AddStartLine(cast);
+            AddAsteroids(cast);
             AddStats(cast, stopwatch);
             AddCoinStats(cast);
             AddTime(cast);
@@ -84,6 +94,42 @@ namespace MarioRacer.Game.SceneManaging
             CheckeredLine checkeredLine = new CheckeredLine(body, image, false);
         
             cast.AddActor(lineGroup, checkeredLine);
+        }
+
+        private void AddAsteroids(Cast cast)
+        {
+            cast.ClearActors(asteroidGroup);
+            // left side asteroids
+            for (int i = 0; i < Constants.DEFAULT_ASTEROIDS; i++)
+            {
+                int astImageIndex = random.Next(Constants.ASTEROID_IMAGES.Count);
+                Image image = new Image(Constants.ASTEROID_IMAGES[astImageIndex]);
+
+                int randX = random.Next(start_x, roadleft);
+                int randY = random.Next(Constants.BACKGROUND_HEIGHT);
+                Point position = new Point(randX, randY);
+                Point size = new Point(Constants.ASTEROID_WIDTH, Constants.ASTEROID_HEIGHT);
+
+                Body body = new Body(position, size, velocity);
+
+                Asteroid asteroid = new Asteroid(body, image, false);
+                cast.AddActor(asteroidGroup, asteroid);
+            }
+            for (int i = 0; i < Constants.DEFAULT_ASTEROIDS; i++)
+            {
+                int astImageIndex = random.Next(Constants.ASTEROID_IMAGES.Count);
+                Image image = new Image(Constants.ASTEROID_IMAGES[astImageIndex]);
+
+                int randX = random.Next(roadRight + Constants.CAR_WIDTH, start_x + Constants.BACKGROUND_WIDTH);
+                int randY = random.Next(Constants.BACKGROUND_HEIGHT);
+                Point position = new Point(randX, randY);
+                Point size = new Point(Constants.ASTEROID_WIDTH, Constants.ASTEROID_HEIGHT);
+
+                Body body = new Body(position, size, velocity);
+
+                Asteroid asteroid = new Asteroid(body, image, false);
+                cast.AddActor(asteroidGroup, asteroid);
+            }
         }
 
         private void AddCoinStats(Cast cast)

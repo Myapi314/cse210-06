@@ -5,24 +5,26 @@ using MarioRacer.Game.Services;
 
 namespace MarioRacer.Game.Scripting
 {
-    public class DrawBricksAction : Action
+    public class DrawAsteroidsAction : Action
     {
         private VideoService videoService;
+        private string asteroidGroup;
         
-        public DrawBricksAction(VideoService videoService)
+        public DrawAsteroidsAction(VideoService videoService, string asteroidGroup)
         {
             this.videoService = videoService;
+            this.asteroidGroup = asteroidGroup;
         }
 
         public void Execute(Cast cast, Script script, ActionCallback callback)
         {
-            List<Actor> bricks = cast.GetActors(Constants.BRICK_GROUP);
-            foreach (Actor actor in bricks)
+            List<Actor> asteroids = cast.GetActors(asteroidGroup);
+            foreach (Actor actor in asteroids)
             {
-                Brick brick = (Brick)actor;
-                Body body = brick.GetBody();
+                Asteroid asteroid = (Asteroid)actor;
+                Body body = asteroid.GetBody();
 
-                if (brick.IsDebug())
+                if (asteroid.IsDebug())
                 {
                     Rectangle rectangle = body.GetRectangle();
                     Point size = rectangle.GetSize();
@@ -30,8 +32,7 @@ namespace MarioRacer.Game.Scripting
                     videoService.DrawRectangle(size, pos, Constants.PURPLE, false);
                 }
 
-                Animation animation = brick.GetAnimation();
-                Image image = animation.NextImage();
+                Image image = asteroid.GetImage();
                 Point position = body.GetPosition();
                 videoService.DrawImage(image, position);
             }

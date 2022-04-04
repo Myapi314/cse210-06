@@ -32,20 +32,27 @@ namespace MarioRacer.Game.Scripting
             string item = p1_stat.GetItem();
             int coins = p1_stat.GetCoinNum();
 
+            if (keyboardService.IsKeyDown(Constants.P1_UP))
+            {
+                velocity = speed;
+            }
+            else
+            {
+                velocity = slow;
+            }
+
             foreach(string group in movingActorGroups)
             {
                 Actor actor = cast.GetFirstActor(group);
                 Body body = actor.GetBody();
-                if (keyboardService.IsKeyDown(Constants.P1_UP))
-                {
-                    velocity = speed;
-                }
-                else
-                {
-                    velocity = slow;
-                }
-
                 body.SetVelocity(velocity);
+            }
+
+            List<Actor> asteroids = cast.GetActors(Constants.P1_ASTEROIDS_GROUP);
+            foreach(Actor asteroid in asteroids)
+            {
+                Body body = asteroid.GetBody();
+                body.SetVelocity(velocity);   
             }
         }
     }

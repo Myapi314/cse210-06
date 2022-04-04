@@ -25,25 +25,28 @@ namespace MarioRacer.Game.Scripting
             Point maxSpeed = new Point(0, Constants.MAX_SPEED);
             Point reverse = new Point(0, Constants.REVERSE);
 
+            if (keyboardService.IsKeyDown(Constants.P2_UP))
+            {
+                velocity = speed;
+
+            }
+            else
+            {
+                velocity = slow;
+            }
+            
             foreach(string group in movingActorGroups)
             {
                 Actor actor = cast.GetFirstActor(group);
                 Body body = actor.GetBody();
-                if (keyboardService.IsKeyDown(Constants.P2_UP))
-                {
-                    velocity = speed;
-
-                }
-                // else if (keyboardService.IsKeyDown(Constants.DOWN))
-                // {
-                //     velocity = reverse;
-                // }
-                else
-                {
-                    velocity = slow;
-                }
-
                 body.SetVelocity(velocity);
+            }
+            
+            List<Actor> asteroids = cast.GetActors(Constants.P2_ASTEROIDS_GROUP);
+            foreach(Actor asteroid in asteroids)
+            {
+                Body body = asteroid.GetBody();
+                body.SetVelocity(velocity);   
             }
         }
     }

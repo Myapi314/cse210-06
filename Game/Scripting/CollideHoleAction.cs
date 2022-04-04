@@ -31,6 +31,8 @@ namespace MarioRacer.Game.Scripting
             Car p1_car = (Car)cast.GetFirstActor(Constants.P1_CAR_GROUP);
             Body p1_carBody = p1_car.GetBody();
 
+            List<Actor> p1_asteroids = cast.GetActors(Constants.P1_ASTEROIDS_GROUP);
+
             if (physicsService.HasCollided(p1_carBody, p1_actorBody))
             {
                 foreach(string group in p1_movingActorGroups)
@@ -39,12 +41,19 @@ namespace MarioRacer.Game.Scripting
                     Body body = actor.GetBody();
                     body.SetVelocity(velocity);
                 }
+                foreach(Actor asteroid in p1_asteroids)
+                {
+                    Body body = asteroid.GetBody();
+                    body.SetVelocity(velocity);   
+                }
             }
 
             Actor p2_actor = cast.GetFirstActor(Constants.P2_WORMHOLE_GROUP);
             Body p2_actorBody = p2_actor.GetBody();
             Car p2_car = (Car)cast.GetFirstActor(Constants.P2_CAR_GROUP);
             Body p2_carBody = p2_car.GetBody();
+
+            List<Actor> p2_asteroids = cast.GetActors(Constants.P2_ASTEROIDS_GROUP);
 
             if (physicsService.HasCollided(p2_carBody, p2_actorBody))
             {
@@ -54,18 +63,12 @@ namespace MarioRacer.Game.Scripting
                     Body body = actor.GetBody();
                     body.SetVelocity(velocity);
                 }
+                foreach(Actor asteroid in p2_asteroids)
+                {
+                    Body body = asteroid.GetBody();
+                    body.SetVelocity(velocity);   
+                }
             }
-            // Ball ball = (Ball)cast.GetFirstActor(Constants.BALL_GROUP);
-            // Car car = (Car)cast.GetFirstActor(Constants.CAR_GROUP);
-            // Body ballBody = ball.GetBody();
-            // Body carBody = car.GetBody();
-
-            // if (physicsService.HasCollided(carBody, ballBody))
-            // {
-            //     ball.BounceY();
-            //     Sound sound = new Sound(Constants.BOUNCE_SOUND);
-            //     audioService.PlaySound(sound);
-            // }
         }
     }
 }

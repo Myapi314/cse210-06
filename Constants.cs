@@ -68,9 +68,18 @@ namespace MarioRacer
         public static string P2_FINISH_SCENE = "p2_finish_scene";
         public static string GAME_OVER = "game_over";
 
-        // LEVELS
+        // INDEXES
         public static int P1_INDEX = 0;
         public static int P2_INDEX = 1;
+        public static int CAR_INDEX = 0;
+        public static int BOOST_INDEX = 1;
+        public static int FLAG_INDEX = 2;
+        public static int LINE_INDEX = 3;
+        public static int COIN_INDEX = 4;
+        public static int WORMHOLE_INDEX = 5;
+        public static int COMET_INDEX = 6;
+        public static int BOX_INDEX = 7;
+        public static int BULLET_INDEX = 8;
 
         // SPEED
         public static int MILES = 10;
@@ -99,8 +108,6 @@ namespace MarioRacer
 
         // STATS
         public static string STATS_GROUP = "stats";
-        public static int DEFAULT_LIVES = 3;
-        public static int MAXIMUM_LIVES = 5;
         public static List<string> ITEMS = new List<string>(){
             "none", "bullet", "boost" , "slow"
         };
@@ -120,7 +127,6 @@ namespace MarioRacer
         public static string TIME_FORMAT = "TIME: {0}";
 
         // CAR
-        public static int CAR_INDEX = 0;
         public static string P1_CAR_GROUP = "playerOneCar";
         public static string P2_CAR_GROUP = "playerTwoCar";
         
@@ -157,11 +163,11 @@ namespace MarioRacer
         public static int CAR_VELOCITY = 7;
 
         // BRICK
-        public static string BRICK_GROUP = "bricks";
+        public static string P1_ASTEROIDS_GROUP = "p1_asteroids";
+        public static string P2_ASTEROIDS_GROUP = "p2_asteroids";
         
-        public static Dictionary<string, List<string>> BRICK_IMAGES
-            = new Dictionary<string, List<string>>() {
-                { "b", new List<string>() {
+        public static List<string> ASTEROID_IMAGES
+            = new List<string>() {
                     "Assets/Images/010.png",
                     "Assets/Images/011.png",
                     "Assets/Images/012.png",
@@ -170,51 +176,17 @@ namespace MarioRacer
                     "Assets/Images/015.png",
                     "Assets/Images/016.png",
                     "Assets/Images/017.png",
-                    "Assets/Images/018.png"
-                } },
-                { "g", new List<string>() {
+                    "Assets/Images/018.png",
                     "Assets/Images/020.png",
                     "Assets/Images/021.png",
-                    "Assets/Images/022.png",
-                    "Assets/Images/023.png",
-                    "Assets/Images/024.png",
-                    "Assets/Images/025.png",
-                    "Assets/Images/026.png",
-                    "Assets/Images/027.png",
-                    "Assets/Images/028.png"
-                } },
-                { "p", new List<string>() {
-                    "Assets/Images/030.png",
-                    "Assets/Images/031.png",
-                    "Assets/Images/032.png",
-                    "Assets/Images/033.png",
-                    "Assets/Images/034.png",
-                    "Assets/Images/035.png",
-                    "Assets/Images/036.png",
-                    "Assets/Images/037.png",
-                    "Assets/Images/038.png"
-                } },
-                { "y", new List<string>() {
-                    "Assets/Images/040.png",
-                    "Assets/Images/041.png",
-                    "Assets/Images/042.png",
-                    "Assets/Images/043.png",
-                    "Assets/Images/044.png",
-                    "Assets/Images/045.png",
-                    "Assets/Images/046.png",
-                    "Assets/Images/047.png",
-                    "Assets/Images/048.png"
-                } }
+                    "Assets/Images/022.png"                
         };
-        public static int BRICK_WIDTH = 80;
-        public static int BRICK_HEIGHT = 28;
-        public static double BRICK_DELAY = 0.5;
-        public static int BRICK_RATE = 4;
-        public static int BRICK_POINTS = 50;
+        public static int ASTEROID_WIDTH = 25;
+        public static int ASTEROID_HEIGHT = 30;
+        public static int ASTEROID_RATE = 4;
+        public static int DEFAULT_ASTEROIDS = 50;
 
          //SPEED BOOST
-        public static int BOOST_INDEX = 1;
-        public static int DEFAULT_BOOST = 5;
         public static string P1_BOOST_GROUP = "p1_boost";
         public static string P2_BOOST_GROUP = "p2_boost";
         public static string BOOST_IMAGE = "Assets/Images/000.png";
@@ -222,7 +194,6 @@ namespace MarioRacer
         public static int BOOST_HEIGHT = 85;
 
         // FLAG
-        public static int FLAG_INDEX = 2;
         public static string P1_FLAG_GROUP = "p1_flag";
         public static string P2_FLAG_GROUP = "p2_flag";
         public static string FLAG_IMAGE = "Assets/Images/flag.png";
@@ -232,7 +203,6 @@ namespace MarioRacer
         public static int FLAG_RATE = 4;
 
         // CHECKERED LINE
-        public static int LINE_INDEX = 3;
         public static string P1_LINE_GROUP = "p1_line";
         public static string P2_LINE_GROUP = "p2_line";
         public static string FINISH_IMAGE = "Assets/Images/200.png";
@@ -244,7 +214,6 @@ namespace MarioRacer
         public static string START_IMAGE = "Assets/Images/201.png";
 
         //COIN
-        public static int COIN_INDEX = 4;
         public static string P1_COIN_GROUP = "p1_coins";
         public static string P2_COIN_GROUP = "p2_coins";
 
@@ -258,11 +227,10 @@ namespace MarioRacer
             };
         public static int COIN_WIDTH = 85;
         public static int COIN_HEIGHT = 85;
-        public static double COIN_DELAY = 0.5;
+        public static double COIN_DELAY = 1;
         public static int COIN_RATE = 4;
 
         //WORMHOLE
-        public static int WORMHOLE_INDEX = 5;
         public static string P1_WORMHOLE_GROUP = "p1_wormhole";
         public static string P2_WORMHOLE_GROUP = "p2_wormhole";
         public static string WORMHOLE_IMAGE = "Assets/Images/311.png";
@@ -270,7 +238,6 @@ namespace MarioRacer
         public static int WORMHOLE_HEIGHT = 75; 
         
         //COMET
-        public static int COMET_INDEX = 6;
         public static string P1_COMET_GROUP = "p1_comet";
         public static string P2_COMET_GROUP = "p2_comet";
         public static string COMET_IMAGE = "Assets/Images/312.png";
@@ -278,7 +245,6 @@ namespace MarioRacer
         public static int COMET_HEIGHT = 95; 
         
         //MYSTERY BOX
-        public static int BOX_INDEX = 7;
         public static string P1_BOX_GROUP = "p1_box";
         public static string P2_BOX_GROUP = "p2_box";
         public static string BOX_IMAGE = "Assets/Images/310.png";
@@ -286,7 +252,6 @@ namespace MarioRacer
         public static int BOX_HEIGHT = 85;
         
         //BULLET
-        public static int BULLET_INDEX = 8;
         public static string P1_BULLET_GROUP = "p1_bullet";
         public static string P2_BULLET_GROUP = "p2_bullet";
         public static string BULLET_IMAGE = "Assets/Images/313.png";
@@ -306,6 +271,5 @@ namespace MarioRacer
         public static string SET = "SET...";
         public static string GO = "GO!";
         public static string WAS_GOOD_GAME = "GAME OVER";
-
     }
 }

@@ -31,6 +31,9 @@ namespace MarioRacer.Game.Scripting
             MysteryBox p1_box = (MysteryBox)cast.GetFirstActor(Constants.P1_BOX_GROUP);
             MysteryBox p2_box = (MysteryBox)cast.GetFirstActor(Constants.P2_BOX_GROUP);
 
+            List<Actor> p1_asteroids = cast.GetActors(Constants.P1_ASTEROIDS_GROUP);
+            List<Actor> p2_asteroids = cast.GetActors(Constants.P2_ASTEROIDS_GROUP);
+
             Point slow = new Point(0, Constants.SLOW);
             Point maxSpeed = new Point(0, Constants.MAX_SPEED);
 
@@ -47,8 +50,14 @@ namespace MarioRacer.Game.Scripting
                     {
                         Actor actor = cast.GetFirstActor(group);
                         Body body = actor.GetBody();
-                        body.SetVelocity(slow);
+                        body.SetVelocity(maxSpeed);
                     }
+                    foreach(Actor asteroid in p1_asteroids)
+                    {
+                        Body body = asteroid.GetBody();
+                        body.SetVelocity(maxSpeed);   
+                    }
+
                     if (elapsed.Seconds > speedDelay)
                     {
                         Console.WriteLine(elapsed);
@@ -71,6 +80,11 @@ namespace MarioRacer.Game.Scripting
                         Actor actor = cast.GetFirstActor(group);
                         Body body = actor.GetBody();
                         body.SetVelocity(slow);
+                    }
+                    foreach(Actor asteroid in p1_asteroids)
+                    {
+                        Body body = asteroid.GetBody();
+                        body.SetVelocity(slow);   
                     }
                     if (elapsed.Seconds > speedDelay)
                     {
@@ -95,6 +109,11 @@ namespace MarioRacer.Game.Scripting
                         Body body = actor.GetBody();
                         body.SetVelocity(maxSpeed);
                     }
+                    foreach(Actor asteroid in p2_asteroids)
+                    {
+                        Body body = asteroid.GetBody();
+                        body.SetVelocity(maxSpeed);   
+                    }
                     if (elapsed.Seconds > speedDelay)
                     {
                         Console.WriteLine("USED SPEED");
@@ -116,6 +135,11 @@ namespace MarioRacer.Game.Scripting
                         Actor actor = cast.GetFirstActor(group);
                         Body body = actor.GetBody();
                         body.SetVelocity(slow);
+                    }
+                    foreach(Actor asteroid in p2_asteroids)
+                    {
+                        Body body = asteroid.GetBody();
+                        body.SetVelocity(slow);   
                     }
                     if (elapsed.Seconds > speedDelay)
                     {

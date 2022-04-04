@@ -56,9 +56,9 @@ namespace MarioRacer.Game.SceneManaging
                 Stopwatch p1_stopwatch = new Stopwatch();
                 Stopwatch p2_stopwatch = new Stopwatch();
                 StartScreen p1_start_screen = new StartScreen(0, 0, Constants.SCREEN_ONE_CENTER_X, 
-                    Constants.P1_CAR_GROUP, Constants.BLUE_CAR_IMAGES, Constants.P1_LINE_GROUP, p1_stopwatch);
+                    Constants.P1_CAR_GROUP, Constants.BLUE_CAR_IMAGES, Constants.P1_LINE_GROUP, Constants.P1_ASTEROIDS_GROUP, p1_stopwatch);
                 StartScreen p2_start_screen = new StartScreen(Constants.CENTER_X, 0, Constants.SCREEN_TWO_CENTER_X, 
-                    Constants.P2_CAR_GROUP, Constants.YELLOW_CAR_IMAGES, Constants.P2_LINE_GROUP, p2_stopwatch);
+                    Constants.P2_CAR_GROUP, Constants.YELLOW_CAR_IMAGES, Constants.P2_LINE_GROUP, Constants.P2_ASTEROIDS_GROUP, p2_stopwatch);
 
                 p1_start_screen.PrepareNewScene(cast);
                 p2_start_screen.PrepareNewScene(cast);
@@ -77,6 +77,8 @@ namespace MarioRacer.Game.SceneManaging
                 ChangeSceneAction a = new ChangeSceneAction(KeyboardService, AudioService, Constants.READY);
                 script.AddAction(Constants.INPUT, a);
                 script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
+                script.AddAction(Constants.OUTPUT, new DrawAsteroidsAction(VideoService, Constants.P1_ASTEROIDS_GROUP));
+                script.AddAction(Constants.OUTPUT, new DrawAsteroidsAction(VideoService, Constants.P2_ASTEROIDS_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P1_LINE_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P2_LINE_GROUP));
                 AddInitActions(script);
@@ -134,6 +136,7 @@ namespace MarioRacer.Game.SceneManaging
                 script.AddAction(Constants.UPDATE, new MoveBoxAction());
                 script.AddAction(Constants.UPDATE, new MoveCoinAction());
                 script.AddAction(Constants.UPDATE, new MoveHoleAction());
+                script.AddAction(Constants.UPDATE, new MoveAsteroidsAction());
                 script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P1_LINE_GROUP));
                 script.AddAction(Constants.UPDATE, new MoveCheckeredLineAction(Constants.P2_LINE_GROUP));
 
@@ -145,6 +148,8 @@ namespace MarioRacer.Game.SceneManaging
                 script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
                 script.AddAction(Constants.OUTPUT, new DrawHudAction(VideoService, Constants.P1_INDEX));
                 script.AddAction(Constants.OUTPUT, new DrawHudAction(VideoService, Constants.P2_INDEX));
+                script.AddAction(Constants.OUTPUT, new DrawAsteroidsAction(VideoService, Constants.P1_ASTEROIDS_GROUP));
+                script.AddAction(Constants.OUTPUT, new DrawAsteroidsAction(VideoService, Constants.P2_ASTEROIDS_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService, Constants.P1_FLAG_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P1_LINE_GROUP));
                 script.AddAction(Constants.OUTPUT, new DrawFlagAction(VideoService, Constants.P2_FLAG_GROUP));
@@ -199,22 +204,6 @@ namespace MarioRacer.Game.SceneManaging
                 script.AddAction(Constants.INPUT, new ControlP2SpeedAction(KeyboardService, new List<string>(){Constants.P2_LINE_GROUP}));
             }
         }
-        private void PrepareTryAgain(Cast cast, Script script)
-        {
-            AddDialog(cast, Constants.READY);
-            AddDialog(cast, Constants.SET);
-            AddDialog(cast, Constants.GO);
-
-            script.ClearAllActions();
-            
-            TimedChangeSceneAction ta = new TimedChangeSceneAction(Constants.IN_PLAY, 2, DateTime.Now);
-            script.AddAction(Constants.INPUT, ta);
-
-            script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
-            
-            AddUpdateActions(script);
-            AddOutputActions(script);
-        }
 
         private void PrepareGameOver(Cast cast, Script script)
         {
@@ -224,6 +213,8 @@ namespace MarioRacer.Game.SceneManaging
             script.ClearAllActions();
 
             script.AddAction(Constants.OUTPUT, new DrawBackgroundAction(VideoService));
+            script.AddAction(Constants.OUTPUT, new DrawAsteroidsAction(VideoService, Constants.P1_ASTEROIDS_GROUP));
+            script.AddAction(Constants.OUTPUT, new DrawAsteroidsAction(VideoService, Constants.P2_ASTEROIDS_GROUP));
 
             script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P1_LINE_GROUP));
             script.AddAction(Constants.OUTPUT, new DrawCheckeredLineAction(VideoService, Constants.P2_LINE_GROUP));

@@ -30,6 +30,8 @@ namespace MarioRacer.Game.Scripting
             Body p1_boostBody = p1_boost.GetBody();
             Car p1_car = (Car)cast.GetFirstActor(Constants.P1_CAR_GROUP);
             Body p1_carBody = p1_car.GetBody();
+            
+            List<Actor> p1_asteroids = cast.GetActors(Constants.P1_ASTEROIDS_GROUP);
 
             if (physicsService.HasCollided(p1_carBody, p1_boostBody))
             {
@@ -39,12 +41,19 @@ namespace MarioRacer.Game.Scripting
                     Body body = actor.GetBody();
                     body.SetVelocity(velocity);
                 }
+                foreach(Actor asteroid in p1_asteroids)
+                {
+                    Body body = asteroid.GetBody();
+                    body.SetVelocity(velocity);   
+                }
             }
 
             Boost p2_boost = (Boost)cast.GetFirstActor(Constants.P2_BOOST_GROUP);
             Body p2_boostBody = p2_boost.GetBody();
             Car p2_car = (Car)cast.GetFirstActor(Constants.P2_CAR_GROUP);
             Body p2_carBody = p2_car.GetBody();
+
+            List<Actor> p2_asteroids = cast.GetActors(Constants.P2_ASTEROIDS_GROUP);
 
             if (physicsService.HasCollided(p2_carBody, p2_boostBody))
             {
@@ -53,6 +62,11 @@ namespace MarioRacer.Game.Scripting
                     Actor actor = cast.GetFirstActor(group);
                     Body body = actor.GetBody();
                     body.SetVelocity(velocity);
+                }
+                foreach(Actor asteroid in p2_asteroids)
+                {
+                    Body body = asteroid.GetBody();
+                    body.SetVelocity(velocity);   
                 }
             }
             // Ball ball = (Ball)cast.GetFirstActor(Constants.BALL_GROUP);
